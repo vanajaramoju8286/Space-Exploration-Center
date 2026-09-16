@@ -218,7 +218,7 @@
   }
 
   /* Custom cursor disabled on mobile/touch screens */
-  .space-cursor-dot, .space-cursor-ring {
+  .space-cursor-dot, .space-cursor-ring, .space-cursor-label {
     display: none !important;
   }
 }
@@ -255,7 +255,7 @@
     scroll-behavior: auto !important;
   }
 
-  .space-cursor-ring, .space-cursor-dot {
+  .space-cursor-ring, .space-cursor-dot, .space-cursor-label {
     display: none !important;
   }
 
