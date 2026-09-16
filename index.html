@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Exploration Center — Immersive 3D Space Experience</title>
+  <meta name="description" content="Journey through planets, galaxies, cosmic phenomena, and deep space missions with the Space Exploration Center's immersive 3D solar system experience.">
+  
+  <!-- Google Fonts: Cinzel (Display) & Montserrat (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/space-animations.css">
+</head>
+<body>
+
+  <!-- =======================================================================
+       STICKY HUD NAVIGATION
+       ======================================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Space Exploration Center Home">
+        <div class="logo-orbit-symbol">
+          <div class="logo-core"></div>
+          <div class="logo-satellite"></div>
+        </div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">HOME</a></li>
+          <li><a href="pages/solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="pages/planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="pages/missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="pages/spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="pages/galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="pages/discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="pages/about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="pages/contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="pages/solar-system.html" class="btn btn-primary btn-nav-explore">EXPLORE</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="mobile-menu-drawer" id="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="mobile-nav-link active">HOME</a></li>
+      <li><a href="pages/solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="pages/planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="pages/missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="pages/spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="pages/galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="pages/phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="pages/discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="pages/about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="pages/contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- =======================================================================
+         SECTION 01: IMMERSIVE 3D HERO
+         ======================================================================= -->
+    <section class="hero-space-experience" id="hero-section" aria-label="Explore the Universe Hero">
+      <!-- Cinematic Space Video Background -->
+      <div class="hero-video-layer" id="hero-video-layer" aria-hidden="true">
+        <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"
+               poster="assets/images/solar-system-flythrough-poster.jpg" disablepictureinpicture controlslist="nodownload noremoteplayback">
+          <source src="assets/videos/solar-system-flythrough.mp4" type="video/mp4">
+          <source src="https://svs.gsfc.nasa.gov/vis/a020000/a020300/a020391/SolarSystemFlythrough_1080.mp4" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+        <div class="hero-video-overlay"></div>
+      </div>
+
+      <!-- 3D Fallback Scene (revealed only if the video cannot load) -->
+      <div class="hero-canvas-container" id="hero-canvas"></div>
+
+      <div class="container hero-content-wrap">
+        <div class="hero-content" id="hero-content">
+          <div class="eyebrow hero-eyebrow">SPACE EXPLORATION CENTER</div>
+          <h1 class="hero-title" id="hero-title">
+            <span class="title-line"><span class="title-core">EXPLORE</span></span>
+            <span class="title-line"><span class="title-core">THE <span class="text-gradient">UNIVERSE</span></span></span>
+          </h1>
+          <p class="hero-subtitle" id="hero-subtitle">
+            Journey through planets, missions and the mysteries beyond our world.
+          </p>
+          <div class="hero-cta-group" id="hero-cta-group">
+            <button class="btn btn-primary" id="hero-start-explore-btn">
+              <span>START EXPLORING</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+            </button>
+            <a href="pages/solar-system.html" class="btn btn-secondary">
+              <span>DISCOVER THE SOLAR SYSTEM</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Hero Telemetry HUD Display -->
+      <div class="hero-telemetry-hud" id="hero-telemetry-hud">
+        <div class="telemetry-item">
+          <span class="telemetry-label">ORBITAL VELOCITY</span>
+          <span class="telemetry-val">29.78 km/s</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="telemetry-label">SOLAR DISTANCE</span>
+          <span class="telemetry-val">1.00 AU</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="telemetry-label">ATMOSPHERIC GLOW</span>
+          <span class="telemetry-val">101.3 kPa</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 02: SOLAR SYSTEM EXPLORER
+         ======================================================================= -->
+    <section class="solar-system-explorer" id="solar-system-section" aria-label="Interactive 3D Solar System">
+      <div class="container">
+        <div class="eyebrow">CELESTIAL CARTOGRAPHY</div>
+        <h2>SOLAR SYSTEM <span class="text-gradient-cyan">EXPLORER</span></h2>
+        <p class="section-desc">
+          Drag to rotate the orbital plane, zoom through planetary orbits, or select any celestial body to travel directly toward it.
+        </p>
+
+        <div class="solar-canvas-wrapper">
+          <!-- Controls HUD -->
+          <div class="solar-system-controls-hud">
+            <button class="solar-hud-btn active" data-planet="overview">FULL SYSTEM</button>
+            <button class="solar-hud-btn" data-planet="sun">SUN</button>
+            <button class="solar-hud-btn" data-planet="mercury">MERCURY</button>
+            <button class="solar-hud-btn" data-planet="venus">VENUS</button>
+            <button class="solar-hud-btn" data-planet="earth">EARTH</button>
+            <button class="solar-hud-btn" data-planet="mars">MARS</button>
+            <button class="solar-hud-btn" data-planet="jupiter">JUPITER</button>
+            <button class="solar-hud-btn" data-planet="saturn">SATURN</button>
+            <button class="solar-hud-btn" data-planet="uranus">URANUS</button>
+            <button class="solar-hud-btn" data-planet="neptune">NEPTUNE</button>
+          </div>
+
+          <!-- WebGL Three.js Canvas -->
+          <div id="solar-system-canvas"></div>
+
+          <!-- Futuristic Information HUD Panel -->
+          <div class="solar-info-panel" id="solar-info-panel">
+            <div class="eyebrow" style="font-size:0.7rem; margin-bottom:0.25rem;">TARGET TELEMETRY</div>
+            <h3 class="solar-info-title" id="solar-info-title">Earth</h3>
+            <div class="solar-info-type" id="solar-info-type">Terrestrial Planet (Oasis World)</div>
+
+            <div class="solar-stats-grid">
+              <div class="solar-stat-item">
+                <div class="solar-stat-label">Distance from Sun</div>
+                <div class="solar-stat-value" id="solar-stat-dist">149.6 Million km</div>
+              </div>
+              <div class="solar-stat-item">
+                <div class="solar-stat-label">Diameter</div>
+                <div class="solar-stat-value" id="solar-stat-diam">12,742 km</div>
+              </div>
+              <div class="solar-stat-item">
+                <div class="solar-stat-label">Moons</div>
+                <div class="solar-stat-value" id="solar-stat-moons">1 (Luna)</div>
+              </div>
+              <div class="solar-stat-item">
+                <div class="solar-stat-label">Orbital Period</div>
+                <div class="solar-stat-value" id="solar-stat-period">365.25 Days</div>
+              </div>
+              <div class="solar-stat-item" style="grid-column: span 2;">
+                <div class="solar-stat-label">Surface Temperature</div>
+                <div class="solar-stat-value" id="solar-stat-temp">-88°C to 58°C</div>
+              </div>
+            </div>
+
+            <a href="pages/planet-detail.html?planet=earth" class="btn btn-primary btn-nav-explore" id="solar-explore-planet-btn" style="width:100%;">
+              <span>EXPLORE PLANET</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 03: PLANET DISCOVERY SHOWCASE
+         ======================================================================= -->
+    <section class="planet-discovery" id="planet-discovery-section" aria-label="Planet Discovery Showcase">
+      <div class="container">
+        <div style="text-align:center;">
+          <div class="eyebrow" style="justify-content:center;">PLANETARY SURVEY</div>
+          <h2>PLANET <span class="text-gradient">DISCOVERY</span></h2>
+          <p class="section-desc" style="margin:1rem auto 0;">
+            Inspect each world individually in cinematic fidelity with real-time lighting, atmospheric scattering, and scientific telemetry.
+          </p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="planet-nav-tabs">
+          <button class="planet-tab-btn" data-planet="mercury">MERCURY</button>
+          <button class="planet-tab-btn" data-planet="venus">VENUS</button>
+          <button class="planet-tab-btn active" data-planet="earth">EARTH</button>
+          <button class="planet-tab-btn" data-planet="mars">MARS</button>
+          <button class="planet-tab-btn" data-planet="jupiter">JUPITER</button>
+          <button class="planet-tab-btn" data-planet="saturn">SATURN</button>
+          <button class="planet-tab-btn" data-planet="uranus">URANUS</button>
+          <button class="planet-tab-btn" data-planet="neptune">NEPTUNE</button>
+        </div>
+
+        <div class="planet-showcase-stage">
+          <!-- 3D Planet Viewer Canvas -->
+          <div class="planet-viewer-canvas-box">
+            <div id="planet-discovery-canvas"></div>
+            <div class="craft-hud-instructions">DRAG TO INSPECT • SCROLL TO ZOOM</div>
+          </div>
+
+          <!-- Planet Details Card -->
+          <div class="planet-details-box">
+            <h3 class="planet-name-hero" id="showcase-planet-name">Earth</h3>
+            <div class="planet-tagline" id="showcase-planet-tagline">Dynamic plate tectonics, protective magnetosphere, liquid hydrosphere</div>
+            <p class="planet-summary" id="showcase-planet-summary">
+              Earth is the third planet from the Sun and the only astronomical object known to harbor life. About 29% of Earth's surface is land while 71% is covered with liquid water oceans.
+            </p>
+
+            <div class="planet-quick-stats">
+              <div class="quick-stat-box">
+                <div class="quick-stat-label">DISTANCE FROM SUN</div>
+                <div class="quick-stat-val" id="showcase-stat-dist">149.6M km</div>
+              </div>
+              <div class="quick-stat-box">
+                <div class="quick-stat-label">MEAN RADIUS</div>
+                <div class="quick-stat-val" id="showcase-stat-radius">6,371 km</div>
+              </div>
+              <div class="quick-stat-box">
+                <div class="quick-stat-label">NATURAL SATELLITES</div>
+                <div class="quick-stat-val" id="showcase-stat-moons">1 Moon</div>
+              </div>
+            </div>
+
+            <a href="pages/planet-detail.html?planet=earth" class="btn btn-primary" id="showcase-explore-btn">
+              <span>EXPLORE DEEP SCIENTIFIC PROFILE</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 04: JOURNEY THROUGH SPACE (INTERACTIVE 3D FLIGHT)
+         ======================================================================= -->
+    <section class="space-journey" id="space-journey-section" aria-label="Interactive Journey Through Space">
+      <div class="container">
+        <div class="eyebrow">INTERPLANETARY TRANSIT CORRIDOR</div>
+        <h2>JOURNEY THROUGH <span class="text-gradient-cyan">SPACE</span></h2>
+        <p class="section-desc">
+          Accelerate through our solar system. Select any waypoint or engage Autopilot to fly the 3D camera across Earth, Moon, Mars, Jupiter, and Saturn into deep space.
+        </p>
+
+        <div class="journey-experience-wrapper">
+          <!-- 3D Journey Canvas Viewport -->
+          <div class="journey-viewport-box">
+            <div id="journey-canvas"></div>
+
+            <!-- Top HUD Flight Controls Bar -->
+            <div class="journey-hud-bar">
+              <span class="journey-hud-label">FLIGHT PATH:</span>
+              <button class="solar-hud-btn active" data-waypoint="0">01 // EARTH</button>
+              <button class="solar-hud-btn" data-waypoint="1">02 // MOON</button>
+              <button class="solar-hud-btn" data-waypoint="2">03 // MARS</button>
+              <button class="solar-hud-btn" data-waypoint="3">04 // JUPITER</button>
+              <button class="solar-hud-btn" data-waypoint="4">05 // SATURN</button>
+              <button class="solar-hud-btn" id="journey-autopilot-btn" style="border-color:var(--accent-cyan); color:var(--accent-cyan);">
+                <span class="autopilot-dot"></span> <span id="autopilot-label">AUTOPILOT: OFF</span>
+              </button>
+            </div>
+
+            <div class="craft-hud-instructions">
+              DRAG TO LOOK AROUND • CLICK ANY WAYPOINT CARD BELOW TO FLY
+            </div>
+          </div>
+
+          <!-- All 5 Waypoint Cards Displayed in Grid -->
+          <div class="journey-cards-grid">
+            <!-- Waypoint 1 -->
+            <div class="hud-card journey-grid-card active" data-waypoint="0">
+              <div class="waypoint-badge">WAYPOINT 01</div>
+              <div class="waypoint-dist">0 KM // LEO</div>
+              <h3 class="waypoint-title">Earth & Cis-Lunar</h3>
+              <p class="waypoint-text">
+                Breaking low Earth orbit at escape velocity (11.2 km/s), leaving behind our blue biosphere and entering the cosmic expanse.
+              </p>
+              <div class="waypoint-action">
+                <span>FLY TO EARTH &rarr;</span>
+              </div>
+            </div>
+
+            <!-- Waypoint 2 -->
+            <div class="hud-card journey-grid-card" data-waypoint="1">
+              <div class="waypoint-badge">WAYPOINT 02</div>
+              <div class="waypoint-dist">384,400 KM</div>
+              <h3 class="waypoint-title">The Moon</h3>
+              <p class="waypoint-text">
+                Passing humanity's first extraterrestrial stepping stone. Ancient impact basins and permanently shadowed polar craters.
+              </p>
+              <div class="waypoint-action">
+                <span>FLY TO MOON &rarr;</span>
+              </div>
+            </div>
+
+            <!-- Waypoint 3 -->
+            <div class="hud-card journey-grid-card" data-waypoint="2">
+              <div class="waypoint-badge">WAYPOINT 03</div>
+              <div class="waypoint-dist">225 MILLION KM</div>
+              <h3 class="waypoint-title">Martian Frontier</h3>
+              <p class="waypoint-text">
+                Crossing the red desert sands of Mars. Home to Olympus Mons and fossilized riverbeds from an ancient, habitable epoch.
+              </p>
+              <div class="waypoint-action">
+                <span>FLY TO MARS &rarr;</span>
+              </div>
+            </div>
+
+            <!-- Waypoint 4 -->
+            <div class="hud-card journey-grid-card" data-waypoint="3">
+              <div class="waypoint-badge">WAYPOINT 04</div>
+              <div class="waypoint-dist">778 MILLION KM</div>
+              <h3 class="waypoint-title">Jupiter's Realm</h3>
+              <p class="waypoint-text">
+                Entering the Jovian realm. Violent radiation belts, howling centuries-old cyclonic storms, and icy ocean worlds Io and Europa.
+              </p>
+              <div class="waypoint-action">
+                <span>FLY TO JUPITER &rarr;</span>
+              </div>
+            </div>
+
+            <!-- Waypoint 5 -->
+            <div class="hud-card journey-grid-card" data-waypoint="4">
+              <div class="waypoint-badge">WAYPOINT 05</div>
+              <div class="waypoint-dist">1.4 BILLION KM</div>
+              <h3 class="waypoint-title">Saturn & The Void</h3>
+              <p class="waypoint-text">
+                Skimming across billions of glistening ice fragments within Saturn's rings before hurtling past the heliosphere into deep space.
+              </p>
+              <div class="waypoint-action">
+                <span>FLY TO SATURN &rarr;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 05: MISSIONS TIMELINE
+         ======================================================================= -->
+    <section class="mission-timeline" id="mission-timeline-section" aria-label="Space Exploration Missions Timeline">
+      <div class="container">
+        <div style="text-align:center;">
+          <div class="eyebrow" style="justify-content:center;">CHRONICLES OF EXPLORATION</div>
+          <h2>HISTORIC & FUTURE <span class="text-gradient">MISSIONS</span></h2>
+          <p class="section-desc" style="margin:1rem auto 0;">
+            Follow humanity's boldest voyages to uncharted worlds, from the Apollo lunar landings to outer solar system pioneers and the James Webb Space Telescope.
+          </p>
+        </div>
+
+        <div class="timeline-track-wrapper">
+          <div class="timeline-center-line"></div>
+
+          <!-- Mission 1 -->
+          <div class="timeline-entry left">
+            <div class="timeline-node-orb"></div>
+            <div class="timeline-card">
+              <div class="timeline-year">1969 • APOLLO 11</div>
+              <h3 class="timeline-title">First Human Lunar Footstep</h3>
+              <div class="timeline-badge">Destination: The Moon • Completed</div>
+              <p class="timeline-desc">
+                Commander Neil Armstrong and Lunar Module Pilot Buzz Aldrin landed the Apollo Lunar Module Eagle on the Sea of Tranquility, fulfilling a historic human ambition.
+              </p>
+            </div>
+          </div>
+
+          <!-- Mission 2 -->
+          <div class="timeline-entry right">
+            <div class="timeline-node-orb"></div>
+            <div class="timeline-card">
+              <div class="timeline-year">1977 • VOYAGER 1 & 2</div>
+              <h3 class="timeline-title">The Grand Tour of Outer Worlds</h3>
+              <div class="timeline-badge">Destination: Interstellar Space • Active</div>
+              <p class="timeline-desc">
+                Taking advantage of a rare planetary alignment, twin probes explored Jupiter, Saturn, Uranus, and Neptune before crossing the heliopause into interstellar space.
+              </p>
+            </div>
+          </div>
+
+          <!-- Mission 3 -->
+          <div class="timeline-entry left">
+            <div class="timeline-node-orb"></div>
+            <div class="timeline-card">
+              <div class="timeline-year">2004 • CASSINI-HUYGENS</div>
+              <h3 class="timeline-title">Saturnian Ocean World Secrets</h3>
+              <div class="timeline-badge">Destination: Saturn & Titan • Completed</div>
+              <p class="timeline-desc">
+                Orbited Saturn for 13 years and deployed the ESA Huygens probe to land on Titan's hydrocarbon lakes, discovering active geothermal geysers erupting on Enceladus.
+              </p>
+            </div>
+          </div>
+
+          <!-- Mission 4 -->
+          <div class="timeline-entry right">
+            <div class="timeline-node-orb"></div>
+            <div class="timeline-card">
+              <div class="timeline-year">2012 • CURIOSITY & PERSEVERANCE</div>
+              <h3 class="timeline-title">Search for Ancient Martian Biosignatures</h3>
+              <div class="timeline-badge">Destination: Mars (Jezero Crater) • Active</div>
+              <p class="timeline-desc">
+                Nuclear-powered rovers examining ancient lakebeds for prebiotic chemical building blocks and caching geological core samples for eventual return to Earth.
+              </p>
+            </div>
+          </div>
+
+          <!-- Mission 5 -->
+          <div class="timeline-entry left">
+            <div class="timeline-node-orb"></div>
+            <div class="timeline-card">
+              <div class="timeline-year">2021 • JAMES WEBB SPACE TELESCOPE</div>
+              <h3 class="timeline-title">Piercing the Cosmic Dawn</h3>
+              <div class="timeline-badge">Destination: Sun-Earth L2 Point • Active</div>
+              <p class="timeline-desc">
+                The most powerful space observatory ever built, utilizing infrared optics with a 6.5-meter gold beryllium primary mirror to image galaxies formed just after the Big Bang.
+              </p>
+            </div>
+          </div>
+
+          <!-- Mission 6 -->
+          <div class="timeline-entry right">
+            <div class="timeline-node-orb"></div>
+            <div class="timeline-card">
+              <div class="timeline-year">2026–2030 • ARTEMIS PROGRAM</div>
+              <h3 class="timeline-title">Permanent Lunar South Pole Base</h3>
+              <div class="timeline-badge">Destination: Lunar South Pole • Planned</div>
+              <p class="timeline-desc">
+                Establishing a permanent sustainable human presence on the Moon and building the Gateway orbital station as a staging platform for crewed missions to Mars.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:3rem;">
+          <a href="pages/missions.html" class="btn btn-secondary">
+            <span>VIEW COMPLETE MISSIONS DATABASE</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 06: SPACECRAFT 3D SHOWCASE
+         ======================================================================= -->
+    <section class="spacecraft-showcase" id="spacecraft-section" aria-label="Interactive 3D Spacecraft Showcase">
+      <div class="container">
+        <div class="eyebrow">ENGINEERING & AEROSPACE</div>
+        <h2>DEEP SPACE <span class="text-gradient-cyan">SPACECRAFT</span></h2>
+        <p class="section-desc">
+          Inspect an authentic 3D interplanetary spacecraft. Click on glowing telemetry hotspots or use the selector buttons below to diagnose critical avionics and propulsion subsystems.
+        </p>
+
+        <div class="spacecraft-interactive-container">
+          <!-- 3D Spacecraft Canvas -->
+          <div class="spacecraft-canvas-box">
+            <div id="spacecraft-canvas"></div>
+            <div class="craft-hud-instructions">DRAG TO ROTATE • CLICK BLUE HOTSPOTS</div>
+          </div>
+
+          <!-- Telemetry Hotspot Panel -->
+          <div class="spacecraft-hotspot-panel hud-card">
+            <div class="hotspot-buttons-list">
+              <button class="hotspot-btn active" data-hotspot="engine">PROPULSION</button>
+              <button class="hotspot-btn" data-hotspot="solar">SOLAR WINGS</button>
+              <button class="hotspot-btn" data-hotspot="comms">COMMS DISH</button>
+              <button class="hotspot-btn" data-hotspot="instruments">SCIENCE SUITE</button>
+              <button class="hotspot-btn" data-hotspot="crew">CREW MODULE</button>
+            </div>
+
+            <div class="hotspot-category" id="craft-subsystem-cat">Propulsion & Orbital Maneuvering</div>
+            <h3 class="hotspot-subsystem-title" id="craft-subsystem-title">Aerojet AJ10 & Ion Thruster Array</h3>
+            <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:1.5rem; line-height:1.6;" id="craft-subsystem-desc">
+              High-efficiency dual-mode propulsion system combining hypergolic bipropellant engines for high-thrust maneuvers with xenon ion thrusters for deep space interplanetary transit.
+            </p>
+
+            <div class="hotspot-telemetry-box" id="craft-subsystem-metrics">
+              <!-- Dynamically populated metrics -->
+            </div>
+
+            <div style="margin-top: 1.75rem;">
+              <a href="pages/spacecraft.html" class="btn btn-primary" style="width:100%;">
+                <span>ENTER SPACECRAFT HANGAR</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 07: GALAXIES & DEEP SPACE
+         ======================================================================= -->
+    <section class="galaxy-explorer" id="galaxy-section" aria-label="Galaxies and Deep Space">
+      <div class="container">
+        <div style="text-align:center;">
+          <div class="eyebrow" style="justify-content:center;">INTERSTELLAR HORIZONS</div>
+          <h2>GALAXIES & <span class="text-gradient">DEEP SPACE</span></h2>
+          <p class="section-desc" style="margin:1rem auto 0;">
+            Peer into the deep universe with our 25,000-particle logarithmic spiral vortex observatory. Click any category to alter the astrophysical simulation.
+          </p>
+        </div>
+
+        <div class="galaxy-viewport-box" style="margin-top:3rem;">
+          <div id="galaxy-canvas"></div>
+        </div>
+
+        <!-- Floating Holographic Cards -->
+        <div class="galaxy-cards-grid">
+          <div class="holographic-galaxy-card" data-galaxy="spiral">
+            <div class="galaxy-type-tag">SPIRAL STRUCTURE</div>
+            <h3 class="galaxy-title">Spiral Galaxies</h3>
+            <p class="galaxy-desc">
+              Pinwheel disks with magnificent winding arms of stars, gas, and dark dust lanes where vibrant star formation flourishes.
+            </p>
+          </div>
+
+          <div class="holographic-galaxy-card" data-galaxy="elliptical">
+            <div class="galaxy-type-tag">SMOOTH ELLIPSOID</div>
+            <h3 class="galaxy-title">Elliptical Galaxies</h3>
+            <p class="galaxy-desc">
+              Massive ellipsoidal stellar swarms containing trillions of ancient stars, anchored by titanic central supermassive black holes.
+            </p>
+          </div>
+
+          <div class="holographic-galaxy-card" data-galaxy="nebula">
+            <div class="galaxy-type-tag">STELLAR NURSERY</div>
+            <h3 class="galaxy-title">Glowing Nebulae</h3>
+            <p class="galaxy-desc">
+              Vast clouds of ionized hydrogen and cosmic dust illuminated by high-energy ultraviolet radiation from newborn stars.
+            </p>
+          </div>
+
+          <div class="holographic-galaxy-card" data-galaxy="clusters">
+            <div class="galaxy-type-tag">GRAVITATIONAL CORE</div>
+            <h3 class="galaxy-title">Star Clusters</h3>
+            <p class="galaxy-desc">
+              Tightly bound spherical clusters of hundreds of thousands of gravitationally linked stars dating back to the dawn of the galaxy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 08: COSMIC PHENOMENA
+         ======================================================================= -->
+    <section class="cosmic-phenomena" id="phenomena-section" aria-label="Cosmic Phenomena Laboratory">
+      <div class="container">
+        <div class="eyebrow">ASTROPHYSICAL EXTREMES</div>
+        <h2>COSMIC <span class="text-gradient-cyan">PHENOMENA</span></h2>
+        <p class="section-desc">
+          Witness the universe's most extreme energetic cataclysms rendered via real-time WebGL particle physics and gravitational distortion shaders.
+        </p>
+
+        <div class="phenomena-container">
+          <!-- 3D Phenomena Shader Viewport -->
+          <div class="phenomena-canvas-wrapper">
+            <div id="phenomena-canvas"></div>
+          </div>
+
+          <!-- Selector List -->
+          <div class="phenomena-selector-list">
+            <button class="phenomena-item-btn active" data-phenomenon="blackhole">
+              <div>
+                <div class="phenomena-item-name">Supermassive Black Hole</div>
+                <div style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">Accretion disk & photon sphere lensing</div>
+              </div>
+              <span class="phenomena-item-type">SINGULARITY</span>
+            </button>
+
+            <button class="phenomena-item-btn" data-phenomenon="supernova">
+              <div>
+                <div class="phenomena-item-name">Core-Collapse Supernova</div>
+                <div style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">Relativistic expanding blast wave</div>
+              </div>
+              <span class="phenomena-item-type">DETONATION</span>
+            </button>
+
+            <button class="phenomena-item-btn" data-phenomenon="flare">
+              <div>
+                <div class="phenomena-item-name">Solar Flare & CME</div>
+                <div style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">Magnetic reconnection plasma eruption</div>
+              </div>
+              <span class="phenomena-item-type">MAGNETIC</span>
+            </button>
+
+            <button class="phenomena-item-btn" data-phenomenon="comet">
+              <div>
+                <div class="phenomena-item-name">Interstellar Comet</div>
+                <div style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">Sublimating coma & dual ion tail</div>
+              </div>
+              <span class="phenomena-item-type">VOLATILE</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hud-card" style="margin-top:2.5rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; align-items:center;">
+          <div>
+            <h4 id="phenomena-active-name" style="font-size:1.3rem; margin-bottom:0.4rem;">Supermassive Black Hole</h4>
+            <p id="phenomena-active-desc" style="color:var(--text-muted); font-size:0.9rem; max-width:650px;">
+              Matter spiraling into the singularity reaches near-light speeds, frictionally heating into a multi-million degree accretion disk emitting immense X-ray radiation.
+            </p>
+          </div>
+          <div style="display:flex; gap:2rem;">
+            <div>
+              <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-dim);">ESTIMATED MASS</div>
+              <div id="phenomena-stat-mass" style="font-weight:700; color:var(--accent-cyan); font-size:1.1rem;">4.15 Million Solar Masses</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-dim);">TEMPERATURE</div>
+              <div id="phenomena-stat-temp" style="font-weight:700; color:var(--accent-cyan); font-size:1.1rem;">10 Billion Kelvin</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 09: LATEST DISCOVERIES
+         ======================================================================= -->
+    <section class="latest-discoveries" id="discoveries-section" aria-label="Latest Space Discoveries">
+      <div class="container">
+        <div class="eyebrow">LIVE TELEMETRY DISPATCH</div>
+        <h2>LATEST <span class="text-gradient">DISCOVERIES</span></h2>
+        <p class="section-desc">
+          Real-time astronomical metrics and recent breakthrough discoveries reported by space observatories and planetary exploration rovers.
+        </p>
+
+        <!-- Dynamic Animated Telemetry Counters -->
+        <div class="telemetry-dashboard-grid">
+          <div class="telemetry-counter-card">
+            <div class="counter-number" data-target="5620" data-suffix="+">0</div>
+            <div class="counter-label">Confirmed Exoplanets</div>
+          </div>
+          <div class="telemetry-counter-card">
+            <div class="counter-number" data-target="13800" data-suffix="M ly">0</div>
+            <div class="counter-label">Observable Edge</div>
+          </div>
+          <div class="telemetry-counter-card">
+            <div class="counter-number" data-target="32" data-prefix="0">0</div>
+            <div class="counter-label">Active Space Probes</div>
+          </div>
+          <div class="telemetry-counter-card">
+            <div class="counter-number" data-target="18400" data-suffix=" TB">0</div>
+            <div class="counter-label">Spectral Data Archived</div>
+          </div>
+        </div>
+
+        <!-- Discoveries Feed Grid -->
+        <div class="discoveries-feed-grid">
+          <article class="discovery-post-card">
+            <div class="discovery-date">TELEMETRY RECEIVED: 2026.03.12 // JWST-NIRSPEC</div>
+            <h3 class="discovery-title">Methane & Carbon Dioxide Detected on Exoplanet K2-18b</h3>
+            <p class="discovery-snippet">
+              Atmospheric transmission spectroscopy reveals carbon-bearing molecules on a temperate sub-Neptune exoplanet in the habitable zone, pointing to potential ocean-covered worlds.
+            </p>
+          </article>
+
+          <article class="discovery-post-card">
+            <div class="discovery-date">TELEMETRY RECEIVED: 2026.02.28 // PERSEVERANCE ROVER</div>
+            <h3 class="discovery-title">Ancient Organic Carbon Signatures Cached in Jezero Delta</h3>
+            <p class="discovery-snippet">
+              The SHERLOC Raman spectrometer detected aromatic carbon rings preserved inside sedimentary mudstones deposited by an ancient Martian river billions of years ago.
+            </p>
+          </article>
+
+          <article class="discovery-post-card">
+            <div class="discovery-date">TELEMETRY RECEIVED: 2026.01.19 // CHIME RADIOTELESCOPE</div>
+            <h3 class="discovery-title">Periodic Fast Radio Burst Traced to Magnetar in Nearby Galaxy</h3>
+            <p class="discovery-snippet">
+              Astrophysicists localized a repeating millisecond radio flash to an ultra-dense magnetic star, providing crucial clues about the energetic engines of the cosmos.
+            </p>
+          </article>
+        </div>
+
+        <div style="text-align:center; margin-top:3rem;">
+          <a href="pages/discoveries.html" class="btn btn-primary">
+            <span>EXPLORE COMPLETE DISCOVERIES REPOSITORY</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 10: FINAL CTA / ENTER THE UNKNOWN
+         ======================================================================= -->
+    <section class="final-space-cta" id="final-cta-section" aria-label="Enter the Unknown">
+      <div class="cta-canvas-background" id="cta-space-canvas"></div>
+
+      <div class="container">
+        <div class="cta-content-wrapper">
+          <div class="eyebrow" style="justify-content:center;">DEEP SPACE GATEWAY</div>
+          <h2 class="cta-heading">THE UNIVERSE IS <span class="text-gradient">WAITING</span></h2>
+          <p class="cta-desc">
+            Continue your journey beyond the boundaries of our solar system. Interactive simulations, planetary databases, and spacecraft telemetry await.
+          </p>
+          <a href="pages/solar-system.html" class="btn btn-primary" id="final-begin-journey-btn" style="font-size:1.05rem; padding:1.1rem 3rem;">
+            <span>BEGIN YOUR JOURNEY</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =======================================================================
+       FOOTER
+       ======================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div>
+          <div class="nav-logo" style="margin-bottom:1rem;">
+            <div class="logo-orbit-symbol">
+              <div class="logo-core"></div>
+              <div class="logo-satellite"></div>
+            </div>
+            <span>SPACE EXPLORATION CENTER</span>
+          </div>
+          <p class="footer-brand-desc">
+            An interactive astrophysical laboratory advancing scientific understanding and public wonder through immersive 3D simulations of the cosmos.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">NAVIGATION</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html" class="footer-link">Home Portal</a></li>
+            <li><a href="pages/solar-system.html" class="footer-link">Solar System 3D</a></li>
+            <li><a href="pages/planets.html" class="footer-link">Planets Directory</a></li>
+            <li><a href="pages/missions.html" class="footer-link">Mission Timeline</a></li>
+            <li><a href="pages/spacecraft.html" class="footer-link">Spacecraft Hangar</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">ASTROPHYSICS</h4>
+          <ul class="footer-links-list">
+            <li><a href="pages/galaxies.html" class="footer-link">Galaxies & Nebulae</a></li>
+            <li><a href="pages/phenomena.html" class="footer-link">Cosmic Phenomena</a></li>
+            <li><a href="pages/discoveries.html" class="footer-link">Exoplanet Catalog</a></li>
+            <li><a href="pages/about.html" class="footer-link">About Center</a></li>
+            <li><a href="pages/contact.html" class="footer-link">DSN Mission Control</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">TELEMETRY UPLINK</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
+            Connected to Deep Space Network (DSN) 70m Antenna Array.
+          </p>
+          <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-cyan);">
+            STATUS: NOMINAL<br>
+            CARRIER: 8.4 GHz (X-BAND)<br>
+            COORDINATES: 35.24°N, 116.89°W
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>&copy; 2026 Space Exploration Center. All astrophysical rights reserved.</div>
+        <div>IMMERSIVE 3D WEB EXPERIENCE • POWERED BY THREE.JS & WEBGL</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CDN Script Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Application Engine Scripts -->
+  <script src="js/textures.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/solar-system.js"></script>
+  <script src="js/planets.js"></script>
+  <script src="js/spacecraft-3d.js"></script>
+  <script src="js/phenomena-3d.js"></script>
+  <script src="js/galaxies-3d.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

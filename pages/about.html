@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Space Exploration Center — Mission, Science & Vision</title>
+  <meta name="description" content="Discover the mission, astrophysical research divisions, and exploration philosophy of the Space Exploration Center.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+
+  <style>
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link active">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="contact.html" class="btn btn-primary btn-nav-explore">TRANSMIT</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link active">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- Animated Space Hero Banner -->
+    <section class="page-hero">
+      <canvas id="about-hero-canvas" class="page-hero-canvas-bg" aria-hidden="true"></canvas>
+      <div class="container page-hero-content">
+        <div class="eyebrow">INSTITUTIONAL CHARTER</div>
+        <h1 class="page-hero-title">BEYOND THE <span class="text-gradient">CRADLE</span></h1>
+        <p class="page-hero-desc">
+          "The Earth is the cradle of humanity, but mankind cannot stay in the cradle forever."
+        </p>
+      </div>
+    </section>
+
+    <!-- Center Philosophy & Pillars -->
+    <section style="padding: 5rem 0 6rem; background: var(--bg-deep-space); border-top: 1px solid var(--border-glass);">
+      <div class="container">
+        <div class="eyebrow">CORE DIRECTIVES</div>
+        <h2>FOUNDATIONAL <span class="text-gradient-cyan">PILLARS</span></h2>
+        <p class="section-desc">
+          Founded as an international public science consortium, the Space Exploration Center unites astrophysicists, aerospace engineers, planetary geologists, and computational scientists.
+        </p>
+
+        <div class="pillars-grid">
+          <!-- Mission -->
+          <div class="hud-card">
+            <div class="eyebrow">DIRECTIVE 01</div>
+            <h3 style="font-size:1.35rem; margin-bottom:0.75rem;">Our Mission</h3>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.7;">
+              To pioneer fundamental discoveries about the origin and evolution of the universe, expand human habitation beyond low Earth orbit, and make cosmic science accessible through state-of-the-art interactive simulations.
+            </p>
+          </div>
+
+          <!-- Vision -->
+          <div class="hud-card">
+            <div class="eyebrow">DIRECTIVE 02</div>
+            <h3 style="font-size:1.35rem; margin-bottom:0.75rem;">Our Vision</h3>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.7;">
+              A multi-planetary human civilization coexisting in harmony with autonomous scientific probes mapping every world in our solar system and deciphering the signatures of life on habitable exoplanets.
+            </p>
+          </div>
+
+          <!-- Philosophy -->
+          <div class="hud-card">
+            <div class="eyebrow">DIRECTIVE 03</div>
+            <h3 style="font-size:1.35rem; margin-bottom:0.75rem;">Exploration Philosophy</h3>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.7;">
+              Open-source scientific discovery. We believe telemetry, planetary cartography, and astronomical datasets belong to all humankind as an shared heritage of wonder and curiosity.
+            </p>
+          </div>
+        </div>
+
+        <!-- Research Divisions -->
+        <h3 style="font-size:1.5rem; margin-top:5rem; margin-bottom:1.5rem; color:#fff;">SCIENTIFIC RESEARCH DIVISIONS</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.5rem;">
+          <div class="hud-card" style="padding:1.5rem;">
+            <h4 style="font-size:1.15rem; color:var(--accent-cyan); margin-bottom:0.4rem;">Planetary Cartography</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">High-resolution multispectral terrain modeling of the Moon, Mars, and Jovian satellites.</p>
+          </div>
+          <div class="hud-card" style="padding:1.5rem;">
+            <h4 style="font-size:1.15rem; color:var(--accent-cyan); margin-bottom:0.4rem;">Exoplanet Characterization</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">Transit spectroscopy and habitability index evaluation of temperate rocky worlds.</p>
+          </div>
+          <div class="hud-card" style="padding:1.5rem;">
+            <h4 style="font-size:1.15rem; color:var(--accent-cyan); margin-bottom:0.4rem;">Astrobiology & Biosignatures</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">Investigating sub-surface ocean hydrothermal plumes on Europa and Enceladus.</p>
+          </div>
+          <div class="hud-card" style="padding:1.5rem;">
+            <h4 style="font-size:1.15rem; color:var(--accent-cyan); margin-bottom:0.4rem;">Deep Space Avionics</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">Autonomous optical navigation, laser communications, and radiation-hardened computing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • Academic & Public Outreach</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animated deep-space banner background (drifting stars, nebula glows, shooting stars)
+      const canvas = document.getElementById('about-hero-canvas');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      let w = 0;
+      let h = 0;
+      let raf = null;
+      let running = true;
+
+      const STAR_COUNT = 260;
+      const stars = [];
+      const glows = [
+        { x: 0.2, y: 0.25, r: 0.55, color: 'rgba(0, 90, 200, 0.20)', drift: 0.00012 },
+        { x: 0.8, y: 0.35, r: 0.45, color: 'rgba(120, 40, 200, 0.18)', drift: -0.00009 },
+        { x: 0.5, y: 0.8, r: 0.6, color: 'rgba(0, 180, 210, 0.14)', drift: 0.00007 }
+      ];
+
+      function resize() {
+        w = canvas.width = canvas.offsetWidth || window.innerWidth;
+        h = canvas.height = canvas.offsetHeight || 420;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      for (let i = 0; i < STAR_COUNT; i++) {
+        const layer = Math.random();
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: (Math.random() < 0.85 ? 0.6 : 1.4) + Math.random(),
+          speed: 0.06 + Math.random() * 0.35 + (1 - layer) * 0.5,
+          drift: (Math.random() - 0.5) * 0.25,
+          tw: 0.4 + Math.random() * 0.6,
+          base: 0.35 + Math.random() * 0.65
+        });
+      }
+      const meteors = [];
+      for (let i = 0; i < 3; i++) {
+        meteors.push({
+          active: false,
+          x: 0, y: 0,
+          vx: 0, vy: 0,
+          life: 0
+        });
+      }
+
+      let t = 0;
+      function frame() {
+        if (!running) return;
+        raf = requestAnimationFrame(frame);
+        t += 0.016;
+
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = '#02040a';
+        ctx.fillRect(0, 0, w, h);
+
+        // Drifting nebula glows
+        glows.forEach(g => {
+          const cx = w * g.x + Math.sin(t * 0.5) * w * 0.04;
+          const cy = h * g.y + Math.cos(t * 0.6) * h * 0.025;
+          const rr = Math.max(w, h) * g.r;
+          const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
+          grad.addColorStop(0, g.color);
+          grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, w, h);
+        });
+
+        // Stars
+        for (const s of stars) {
+          s.y += s.speed;
+          s.x += s.drift;
+          if (s.y > h + 4) { s.y = -4; s.x = Math.random() * w; }
+          if (s.x > w + 4) s.x = -4;
+          if (s.x < -4) s.x = w + 4;
+          const a = s.base * (0.6 + 0.4 * Math.sin(t * s.tw * 3));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${a.toFixed(2)})`;
+          ctx.fill();
+        }
+
+        // Occasional shooting stars
+        meteors.forEach(m => {
+          if (!m.active || m.life <= 0) {
+            if (Math.random() < 0.004) {
+              m.active = true;
+              m.life = 1;
+              m.x = w * (0.1 + Math.random() * 0.6);
+              m.y = h * (0.05 + Math.random() * 0.3);
+              const speed = 8 + Math.random() * 6;
+              const ang = Math.PI / 4 + (Math.random() * 0.35 - 0.175);
+              m.vx = Math.cos(ang) * speed;
+              m.vy = Math.sin(ang) * speed;
+            }
+            return;
+          }
+          m.life -= 0.016;
+          const px = m.x;
+          const py = m.y;
+          m.x += m.vx;
+          m.y += m.vy;
+          m.vx += 0.6;
+          ctx.strokeStyle = `rgba(190, 225, 255, ${(m.life * 0.9).toFixed(2)})`;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.moveTo(px, py);
+          ctx.lineTo(px - m.vx * 5, py - m.vy * 5);
+          ctx.stroke();
+        });
+      }
+      frame();
+
+      window.addEventListener('beforeunload', () => {
+        running = false;
+        if (raf) cancelAnimationFrame(raf);
+      });
+    });
+  </script>
+</body>
+</html>

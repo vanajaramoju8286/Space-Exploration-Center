@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deep Space Exploration Missions — Space Exploration Center</title>
+  <meta name="description" content="Explore human and robotic space exploration missions across the solar system with multi-criteria filters for destination, era, and status.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+
+  <style>
+    .mission-filter-matrix {
+      background: var(--bg-card-glass);
+      border: 1px solid var(--border-glass);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(16px);
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .filter-group-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .filter-select {
+      width: 100%;
+      background: rgba(3, 7, 18, 0.8);
+      border: 1px solid var(--border-muted);
+      color: #fff;
+      padding: 0.6rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+    }
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+    }
+    .missions-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .mission-status-pill {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+    .status-active {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10b981;
+      color: #34d399;
+    }
+    .status-completed {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+    }
+    .status-planned {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid #f59e0b;
+      color: #fbbf24;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link active">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="spacecraft.html" class="btn btn-primary btn-nav-explore">SPACECRAFT</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link active">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- Page Hero Banner -->
+    <section class="page-hero">
+      <div class="container page-hero-content">
+        <div class="eyebrow">CHRONICLES OF VOYAGE</div>
+        <h1 class="page-hero-title">SPACE EXPLORATION <span class="text-gradient">MISSIONS</span></h1>
+        <p class="page-hero-desc">
+          Filter and explore humanity's voyages into the unknown, from pioneering lunar landings to interplanetary orbiters, rovers, and future deep space missions.
+        </p>
+
+        <!-- Interactive Filtering Matrix -->
+        <div class="mission-filter-matrix">
+          <div>
+            <div class="filter-group-title">DESTINATION</div>
+            <select class="filter-select" id="filter-destination">
+              <option value="all">All Destinations</option>
+              <option value="moon">The Moon</option>
+              <option value="mars">Mars</option>
+              <option value="outer">Outer Planets (Jupiter/Saturn)</option>
+              <option value="deep">Deep Space / L2</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="filter-group-title">MISSION TYPE</div>
+            <select class="filter-select" id="filter-type">
+              <option value="all">All Mission Types</option>
+              <option value="crewed">Crewed Exploration</option>
+              <option value="rover">Robotic Rover / Lander</option>
+              <option value="orbiter">Orbiter / Flyby</option>
+              <option value="telescope">Space Observatory</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="filter-group-title">STATUS</div>
+            <select class="filter-select" id="filter-status">
+              <option value="all">All Statuses</option>
+              <option value="active">Active Missions</option>
+              <option value="completed">Completed Historic</option>
+              <option value="planned">Planned Future</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Missions Cards Grid -->
+    <section style="padding: 4rem 0 6rem; background: var(--bg-deep-space);">
+      <div class="container">
+        <div class="missions-cards-grid" id="missions-container">
+
+          <!-- Apollo 11 -->
+          <article class="hud-card mission-card" data-dest="moon" data-type="crewed" data-status="completed">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem;">
+              <span class="mission-status-pill status-completed">COMPLETED</span>
+              <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-cyan);">1969</span>
+            </div>
+            <h3 style="font-size:1.4rem; margin-bottom:0.4rem;">Apollo 11</h3>
+            <div style="font-size:0.85rem; color:var(--accent-soft-cyan); margin-bottom:1rem;">Destination: The Moon • Crewed Lunar Landing</div>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.5rem;">
+              The first crewed mission to land humans on the Moon, commanded by Neil Armstrong and Buzz Aldrin aboard the Lunar Module Eagle.
+            </p>
+            <a href="mission-detail.html?mission=apollo-11" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+              <span>MISSION DOSSIER</span>
+            </a>
+          </article>
+
+          <!-- Voyager 1 & 2 -->
+          <article class="hud-card mission-card" data-dest="outer" data-type="orbiter" data-status="active">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem;">
+              <span class="mission-status-pill status-active">ACTIVE • INTERSTELLAR</span>
+              <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-cyan);">1977</span>
+            </div>
+            <h3 style="font-size:1.4rem; margin-bottom:0.4rem;">Voyager 1 & 2</h3>
+            <div style="font-size:0.85rem; color:var(--accent-soft-cyan); margin-bottom:1rem;">Destination: Outer Solar System & Beyond</div>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.5rem;">
+              Humanity's farthest emissaries, carrying the Golden Record across the heliopause and directly sampling interstellar space.
+            </p>
+            <a href="mission-detail.html?mission=voyager-1" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+              <span>MISSION DOSSIER</span>
+            </a>
+          </article>
+
+          <!-- Cassini-Huygens -->
+          <article class="hud-card mission-card" data-dest="outer" data-type="orbiter" data-status="completed">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem;">
+              <span class="mission-status-pill status-completed">COMPLETED</span>
+              <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-cyan);">1997–2017</span>
+            </div>
+            <h3 style="font-size:1.4rem; margin-bottom:0.4rem;">Cassini-Huygens</h3>
+            <div style="font-size:0.85rem; color:var(--accent-soft-cyan); margin-bottom:1rem;">Destination: Saturn, Titan & Enceladus</div>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.5rem;">
+              Explored Saturn for 13 years, discovered hydrothermal vents on Enceladus, and soft-landed the European Huygens probe on Titan.
+            </p>
+            <a href="mission-detail.html?mission=cassini" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+              <span>MISSION DOSSIER</span>
+            </a>
+          </article>
+
+          <!-- Curiosity & Perseverance -->
+          <article class="hud-card mission-card" data-dest="mars" data-type="rover" data-status="active">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem;">
+              <span class="mission-status-pill status-active">ACTIVE ON MARS</span>
+              <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-cyan);">2012–PRESENT</span>
+            </div>
+            <h3 style="font-size:1.4rem; margin-bottom:0.4rem;">Mars Science Laboratory & M2020</h3>
+            <div style="font-size:0.85rem; color:var(--accent-soft-cyan); margin-bottom:1rem;">Destination: Mars (Gale & Jezero Craters)</div>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.5rem;">
+              Heavy nuclear rovers drilling ancient Martian river deltas, confirming past habitable environments and caching sample tubes.
+            </p>
+            <a href="mission-detail.html?mission=perseverance" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+              <span>MISSION DOSSIER</span>
+            </a>
+          </article>
+
+          <!-- James Webb Space Telescope -->
+          <article class="hud-card mission-card" data-dest="deep" data-type="telescope" data-status="active">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem;">
+              <span class="mission-status-pill status-active">ACTIVE • L2 ORBIT</span>
+              <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-cyan);">2021–PRESENT</span>
+            </div>
+            <h3 style="font-size:1.4rem; margin-bottom:0.4rem;">James Webb Space Telescope</h3>
+            <div style="font-size:0.85rem; color:var(--accent-soft-cyan); margin-bottom:1rem;">Destination: Sun-Earth L2 (1.5M km)</div>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.5rem;">
+              Revolutionary infrared observatory with a 6.5m gold mirror peering back over 13.5 billion years to witness cosmic dawn.
+            </p>
+            <a href="mission-detail.html?mission=jwst" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+              <span>MISSION DOSSIER</span>
+            </a>
+          </article>
+
+          <!-- Artemis Program -->
+          <article class="hud-card mission-card" data-dest="moon" data-type="crewed" data-status="planned">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem;">
+              <span class="mission-status-pill status-planned">EXPEDITIONS PLANNED</span>
+              <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-cyan);">2026–2030</span>
+            </div>
+            <h3 style="font-size:1.4rem; margin-bottom:0.4rem;">Artemis II & III</h3>
+            <div style="font-size:0.85rem; color:var(--accent-soft-cyan); margin-bottom:1rem;">Destination: Lunar South Pole & Gateway</div>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.5rem;">
+              Returning humanity to the Moon with Orion and Starship HLS, landing the first woman and person of color on the lunar south pole.
+            </p>
+            <a href="mission-detail.html?mission=artemis" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+              <span>MISSION DOSSIER</span>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • Deep Space Missions Archive</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const destSelect = document.getElementById('filter-destination');
+      const typeSelect = document.getElementById('filter-type');
+      const statusSelect = document.getElementById('filter-status');
+      const cards = document.querySelectorAll('.mission-card');
+
+      function filterMissions() {
+        const dest = destSelect.value;
+        const type = typeSelect.value;
+        const stat = statusSelect.value;
+
+        cards.forEach(c => {
+          const matchDest = (dest === 'all' || c.dataset.dest === dest);
+          const matchType = (type === 'all' || c.dataset.type === type);
+          const matchStat = (stat === 'all' || c.dataset.status === stat);
+
+          if (matchDest && matchType && matchStat) {
+            c.style.display = 'block';
+          } else {
+            c.style.display = 'none';
+          }
+        });
+      }
+
+      destSelect.addEventListener('change', filterMissions);
+      typeSelect.addEventListener('change', filterMissions);
+      statusSelect.addEventListener('change', filterMissions);
+    });
+  </script>
+</body>
+</html>

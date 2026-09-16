@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planets of the Solar System — Space Exploration Center</title>
+  <meta name="description" content="Explore detailed profiles of all eight planets in our Solar System, comparing terrestrial worlds, gas giants, and ice giants with interactive 3D globes.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+  <style>
+    .planet-catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .planet-card-visual {
+      height: 220px;
+      width: 100%;
+      position: relative;
+      background: radial-gradient(circle at center, rgba(14, 28, 55, 0.7) 0%, rgba(3, 7, 18, 0.95) 80%);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      overflow: hidden;
+    }
+    .planet-card-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .planet-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link active">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="solar-system.html" class="btn btn-primary btn-nav-explore">ORBIT MAP</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link active">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- Page Hero Banner -->
+    <section class="page-hero">
+      <div class="container page-hero-content">
+        <div class="eyebrow">PLANETARY DIRECTORY</div>
+        <h1 class="page-hero-title">WORLDS OF OUR <span class="text-gradient">SOLAR SYSTEM</span></h1>
+        <p class="page-hero-desc">
+          Eight extraordinary worlds sculpted by stellar winds, gravitational resonance, and billions of years of cosmic evolution. Select any planet to inspect its complete geophysical profile.
+        </p>
+
+        <!-- Category Filters -->
+        <div class="planet-filter-bar">
+          <button class="solar-hud-btn active" data-filter="all">ALL PLANETS (8)</button>
+          <button class="solar-hud-btn" data-filter="terrestrial">TERRESTRIAL WORLDS (4)</button>
+          <button class="solar-hud-btn" data-filter="gas">GAS GIANTS (2)</button>
+          <button class="solar-hud-btn" data-filter="ice">ICE GIANTS (2)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Planet Cards Catalog -->
+    <section style="padding: 4rem 0 6rem; background: var(--bg-deep-space);">
+      <div class="container">
+        <div class="planet-catalog-grid" id="planet-grid">
+
+          <!-- Mercury -->
+          <article class="hud-card" style="padding:0; overflow:hidden;" data-category="terrestrial">
+            <div class="planet-card-visual">
+              <div class="planet-card-canvas" data-planet="mercury"></div>
+            </div>
+            <div style="padding: 1.75rem;">
+              <div class="eyebrow" style="font-size:0.7rem;">0.39 AU • INNER BELT</div>
+              <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Mercury</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.25rem;">
+                The smallest planet, enduring wild temperature swings with virtually no atmosphere to retain solar warmth.
+              </p>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:1.5rem; color:var(--text-dim);">
+                <span>RADIUS: 2,440 km</span>
+                <span>MOONS: 0</span>
+              </div>
+              <a href="planet-detail.html?planet=mercury" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+                <span>INSPECT MERCURY</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Venus -->
+          <article class="hud-card" style="padding:0; overflow:hidden;" data-category="terrestrial">
+            <div class="planet-card-visual">
+              <div class="planet-card-canvas" data-planet="venus"></div>
+            </div>
+            <div style="padding: 1.75rem;">
+              <div class="eyebrow" style="font-size:0.7rem;">0.72 AU • INNER BELT</div>
+              <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Venus</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.25rem;">
+                A crushing supercritical carbon dioxide atmosphere driving the solar system's hottest runaway greenhouse effect.
+              </p>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:1.5rem; color:var(--text-dim);">
+                <span>RADIUS: 6,052 km</span>
+                <span>MOONS: 0</span>
+              </div>
+              <a href="planet-detail.html?planet=venus" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+                <span>INSPECT VENUS</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Earth -->
+          <article class="hud-card" style="padding:0; overflow:hidden;" data-category="terrestrial">
+            <div class="planet-card-visual">
+              <div class="planet-card-canvas" data-planet="earth"></div>
+            </div>
+            <div style="padding: 1.75rem;">
+              <div class="eyebrow" style="font-size:0.7rem; color:var(--accent-cyan);">1.00 AU • HABITABLE ZONE</div>
+              <h3 style="font-size:1.5rem; margin-bottom:0.5rem; color:#fff;">Earth</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.25rem;">
+                The oasis of life. Liquid oceans, dynamic plate tectonics, and a shielding magnetosphere sheltering humanity.
+              </p>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:1.5rem; color:var(--text-dim);">
+                <span>RADIUS: 6,371 km</span>
+                <span>MOONS: 1 (Luna)</span>
+              </div>
+              <a href="planet-detail.html?planet=earth" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+                <span>INSPECT EARTH</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Mars -->
+          <article class="hud-card" style="padding:0; overflow:hidden;" data-category="terrestrial">
+            <div class="planet-card-visual">
+              <div class="planet-card-canvas" data-planet="mars"></div>
+            </div>
+            <div style="padding: 1.75rem;">
+              <div class="eyebrow" style="font-size:0.7rem;">1.52 AU • RED PLANET</div>
+              <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Mars</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.25rem;">
+                A freeze-dried desert world holding the solar system's tallest volcano, vast canyons, and preserved river deltas.
+              </p>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:1.5rem; color:var(--text-dim);">
+                <span>RADIUS: 3,390 km</span>
+                <span>MOONS: 2</span>
+              </div>
+              <a href="planet-detail.html?planet=mars" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+                <span>INSPECT MARS</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Jupiter -->
+          <article class="hud-card" style="padding:0; overflow:hidden;" data-category="gas">
+            <div class="planet-card-visual">
+              <div class="planet-card-canvas" data-planet="jupiter"></div>
+            </div>
+            <div style="padding: 1.75rem;">
+              <div class="eyebrow" style="font-size:0.7rem;">5.20 AU • JOVIAN GIANT</div>
+              <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Jupiter</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.25rem;">
+                The undisputed sovereign of the solar system. More massive than all other planets combined, with a 350-year-old Great Red Spot storm.
+              </p>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:1.5rem; color:var(--text-dim);">
+                <span>RADIUS: 69,911 km</span>
+                <span>MOONS: 95</span>
+              </div>
+              <a href="planet-detail.html?planet=jupiter" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+                <span>INSPECT JUPITER</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Saturn -->
+          <article class="hud-card" style="padding:0; overflow:hidden;" data-category="gas">
+            <div class="planet-card-visual">
+              <div class="planet-card-canvas" data-planet="saturn"></div>
+            </div>
+            <div style="padding: 1.75rem;">
+              <div class="eyebrow" style="font-size:0.7rem;">9.58 AU • RINGED TITAN</div>
+              <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Saturn</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.25rem;">
+                Encircled by breathtaking ice ring structures spanning 280,000 km, accompanied by ocean moon Enceladus and methane world Titan.
+              </p>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:1.5rem; color:var(--text-dim);">
+                <span>RADIUS: 58,232 km</span>
+                <span>MOONS: 146</span>
+              </div>
+              <a href="planet-detail.html?planet=saturn" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+                <span>INSPECT SATURN</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Uranus -->
+          <article class="hud-card" style="padding:0; overflow:hidden;" data-category="ice">
+            <div class="planet-card-visual">
+              <div class="planet-card-canvas" data-planet="uranus"></div>
+            </div>
+            <div style="padding: 1.75rem;">
+              <div class="eyebrow" style="font-size:0.7rem;">19.2 AU • ICE GIANT</div>
+              <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Uranus</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.25rem;">
+                An aquamarine ice giant rolling on its side with an extreme 98° axial tilt, subjecting its poles to 42 years of continuous darkness.
+              </p>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:1.5rem; color:var(--text-dim);">
+                <span>RADIUS: 25,362 km</span>
+                <span>MOONS: 28</span>
+              </div>
+              <a href="planet-detail.html?planet=uranus" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+                <span>INSPECT URANUS</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Neptune -->
+          <article class="hud-card" style="padding:0; overflow:hidden;" data-category="ice">
+            <div class="planet-card-visual">
+              <div class="planet-card-canvas" data-planet="neptune"></div>
+            </div>
+            <div style="padding: 1.75rem;">
+              <div class="eyebrow" style="font-size:0.7rem;">30.1 AU • OUTER REALM</div>
+              <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Neptune</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.25rem;">
+                The windiest planet in the Solar System, with supersonic storms screaming across deep azure methane skies at over 2,100 km/h.
+              </p>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:1.5rem; color:var(--text-dim);">
+                <span>RADIUS: 24,622 km</span>
+                <span>MOONS: 16</span>
+              </div>
+              <a href="planet-detail.html?planet=neptune" class="btn btn-primary" style="width:100%; font-size:0.8rem;">
+                <span>INSPECT NEPTUNE</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • Planetary Science Division</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="../js/textures.js"></script>
+  <script src="../js/three-scene.js"></script>
+  <script src="../js/planets.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Filter logic
+      const filterBtns = document.querySelectorAll('.planet-filter-bar button');
+      const cards = document.querySelectorAll('.planet-catalog-grid article');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const filter = btn.dataset.filter;
+          cards.forEach(card => {
+            if (filter === 'all' || card.dataset.category === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Initialize mini 3D globes for each card
+      document.querySelectorAll('.planet-card-canvas').forEach(canvasContainer => {
+        const planetKey = canvasContainer.dataset.planet;
+        const app = SpaceThree.initScene(canvasContainer, {
+          fov: 40,
+          camZ: 14,
+          controls: false,
+          exposure: 1.1
+        });
+        if (!app) return;
+
+        const { scene, camera, renderer } = app;
+        const sunLight = new THREE.DirectionalLight(0xffffff, 2.0);
+        sunLight.position.set(10, 5, 10);
+        scene.add(sunLight);
+        scene.add(new THREE.AmbientLight(0x1e293b, 0.4));
+
+        let tex;
+        let hasRings = false;
+        switch(planetKey) {
+          case 'mercury': tex = SpaceTextures.createMercuryTexture(512, 256); break;
+          case 'venus': tex = SpaceTextures.createVenusTexture(512, 256); break;
+          case 'earth': tex = SpaceTextures.createEarthTexture(512, 256); break;
+          case 'mars': tex = SpaceTextures.createMarsTexture(512, 256); break;
+          case 'jupiter': tex = SpaceTextures.createJupiterTexture(512, 256); break;
+          case 'saturn': tex = SpaceTextures.createSaturnTexture(512, 256); hasRings = true; break;
+          case 'uranus': tex = SpaceTextures.createUranusTexture(512, 256); break;
+          case 'neptune': tex = SpaceTextures.createNeptuneTexture(512, 256); break;
+          default: tex = SpaceTextures.createMarsTexture(512, 256);
+        }
+
+        const mesh = new THREE.Mesh(
+          new THREE.SphereGeometry(3.5, 32, 32),
+          new THREE.MeshStandardMaterial({ map: tex, roughness: 0.8 })
+        );
+        scene.add(mesh);
+
+        if (hasRings) {
+          const ringGeo = new THREE.RingGeometry(4.6, 7.5, 32);
+          ringGeo.rotateX(Math.PI / 2.3);
+          const ringMesh = new THREE.Mesh(
+            ringGeo,
+            new THREE.MeshStandardMaterial({
+              map: SpaceTextures.createSaturnRingsTexture(512, 32),
+              side: THREE.DoubleSide,
+              transparent: true,
+              opacity: 0.9
+            })
+          );
+          scene.add(ringMesh);
+        }
+
+        function anim() {
+          requestAnimationFrame(anim);
+          mesh.rotation.y += 0.008;
+          renderer.render(scene, camera);
+        }
+        anim();
+      });
+    });
+  </script>
+</body>
+</html>

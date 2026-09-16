@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Spacecraft Inspector & Subsystems — Space Exploration Center</title>
+  <meta name="description" content="Inspect interactive 3D spacecraft models with subsystem telemetry hotspots, engineering schematics, and propulsion diagnostics.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+
+  <style>
+    .craft-inspect-stage {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 520px;
+      background: radial-gradient(circle at center, rgba(14, 28, 55, 0.5) 0%, #010308 85%);
+      overflow: hidden;
+    }
+    #craft-detail-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .hud-hotspot-floating-bar {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 15;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      background: var(--bg-hud-glass);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(14px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link active">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="spacecraft.html" class="btn btn-primary btn-nav-explore">ALL SPACECRAFT</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link active">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main style="padding-top: var(--header-height);">
+    <!-- 3D Inspection Stage -->
+    <div class="craft-inspect-stage">
+      <div id="craft-detail-canvas"></div>
+
+      <!-- Hotspot Floating Nav Bar -->
+      <div class="hud-hotspot-floating-bar">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim); display:flex; align-items:center; margin-right:0.5rem;">SUBSYSTEMS:</span>
+        <button class="solar-hud-btn active" data-subsystem="engine">PROPULSION</button>
+        <button class="solar-hud-btn" data-subsystem="solar">SOLAR WINGS</button>
+        <button class="solar-hud-btn" data-subsystem="comms">COMMS DISH</button>
+        <button class="solar-hud-btn" data-subsystem="instruments">SCIENCE SUITE</button>
+        <button class="solar-hud-btn" data-subsystem="crew">CREW MODULE</button>
+      </div>
+
+      <div class="craft-hud-instructions" style="bottom: 1.5rem; top: auto;">
+        DRAG TO ROTATE 360° • SCROLL TO ZOOM • CLICK HOTSPOTS
+      </div>
+    </div>
+
+    <!-- Active Subsystem Telemetry Details -->
+    <section style="padding: 4.5rem 0 6rem; background: var(--bg-deep-space); border-top: 1px solid var(--border-glass);">
+      <div class="container">
+        <div class="hud-card" style="display:grid; grid-template-columns: 1.2fr 1fr; gap:3rem; align-items:flex-start;">
+          <div>
+            <div class="eyebrow" id="subsystem-cat">PROPULSION & ORBITAL MANEUVERING</div>
+            <h2 id="subsystem-title">Aerojet AJ10 & Ion Thruster Array</h2>
+            <p style="color:var(--text-muted); font-size:1.05rem; line-height:1.7; margin-top:1rem;" id="subsystem-desc">
+              High-efficiency dual-mode propulsion system combining hypergolic bipropellant engines for high-thrust maneuvers with xenon ion thrusters for deep space interplanetary transit.
+            </p>
+
+            <div style="margin-top:2rem; display:flex; gap:1.5rem; flex-wrap:wrap;">
+              <div>
+                <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim);">SYSTEM STATUS</div>
+                <div id="subsystem-status" style="font-weight:700; color:#34d399; font-size:1rem; margin-top:0.25rem;">Nominal (100% Thrust Ready)</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim);">OPERATIONAL OUTPUT</div>
+                <div id="subsystem-power" style="font-weight:700; color:var(--accent-cyan); font-size:1rem; margin-top:0.25rem;">33.4 kN Thrust Output</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real-Time Telemetry Feed Box -->
+          <div style="background:rgba(3,7,18,0.85); border:1px solid var(--border-muted); border-radius:var(--radius-sm); padding:1.5rem;">
+            <div class="eyebrow" style="font-size:0.75rem;">LIVE SUBSYSTEM TELEMETRY</div>
+            <div id="subsystem-telemetry-feed" style="margin-top:1rem; display:flex; flex-direction:column; gap:0.75rem; font-family:var(--font-mono); font-size:0.85rem;">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:3.5rem;">
+          <a href="spacecraft.html" class="btn btn-secondary">&larr; BACK TO SPACECRAFT LIBRARY</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • Spacecraft Systems Engineering</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="../js/textures.js"></script>
+  <script src="../js/three-scene.js"></script>
+  <script src="../js/spacecraft-3d.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const catEl = document.getElementById('subsystem-cat');
+      const titleEl = document.getElementById('subsystem-title');
+      const descEl = document.getElementById('subsystem-desc');
+      const statusEl = document.getElementById('subsystem-status');
+      const powerEl = document.getElementById('subsystem-power');
+      const feedEl = document.getElementById('subsystem-telemetry-feed');
+
+      const app = Spacecraft3D.create('craft-detail-canvas', {
+        onHotspotSelect: (data) => {
+          if (catEl) catEl.textContent = data.category;
+          if (titleEl) titleEl.textContent = data.title;
+          if (descEl) descEl.textContent = data.desc;
+          if (statusEl) statusEl.textContent = data.status;
+          if (powerEl) powerEl.textContent = data.power;
+
+          if (feedEl) {
+            feedEl.innerHTML = data.telemetry.map(t => `
+              <div style="display:flex; justify-content:space-between; padding:0.4rem 0; border-bottom:1px dashed rgba(255,255,255,0.1);">
+                <span style="color:var(--text-dim);">${t.label}</span>
+                <strong style="color:var(--accent-cyan);">${t.val}</strong>
+              </div>
+            `).join('');
+          }
+
+          document.querySelectorAll('.solar-hud-btn[data-subsystem]').forEach(b => {
+            b.classList.toggle('active', b.dataset.subsystem === data.id);
+          });
+        }
+      });
+
+      document.querySelectorAll('.solar-hud-btn[data-subsystem]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          app.selectHotspot(btn.dataset.subsystem);
+        });
+      });
+
+      // Default select engine
+      app.selectHotspot('engine');
+    });
+  </script>
+</body>
+</html>

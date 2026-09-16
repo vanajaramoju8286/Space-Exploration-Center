@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deep Space Spacecraft Hangar — Space Exploration Center</title>
+  <meta name="description" content="Interactive 3D spacecraft catalog featuring crewed capsules, interplanetary probes, rovers, and orbital telescopes.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+
+  <style>
+    .craft-library-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+    }
+    .craft-preview-box {
+      width: 100%;
+      height: 240px;
+      position: relative;
+      background: radial-gradient(circle at center, rgba(14, 28, 55, 0.7) 0%, rgba(2, 5, 12, 0.95) 80%);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      overflow: hidden;
+    }
+    .craft-mini-canvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link active">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="spacecraft-detail.html?craft=orion" class="btn btn-primary btn-nav-explore">3D INSPECTOR</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link active">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- Page Hero Banner -->
+    <section class="page-hero">
+      <div class="container page-hero-content">
+        <div class="eyebrow">AEROSPACE ARCHIVE & HANGAR</div>
+        <h1 class="page-hero-title">DEEP SPACE <span class="text-gradient">SPACECRAFT</span></h1>
+        <p class="page-hero-desc">
+          Inspect the interplanetary vessels, autonomous rovers, and optical observatories engineered to endure the extreme radiation and vacuum of space.
+        </p>
+      </div>
+    </section>
+
+    <!-- Spacecraft Library Grid -->
+    <section style="padding: 4rem 0 6rem; background: var(--bg-deep-space);">
+      <div class="container">
+        <div class="craft-library-grid">
+
+          <!-- Orion Deep Space Vehicle -->
+          <article class="hud-card" style="padding:0; overflow:hidden;">
+            <div class="craft-preview-box">
+              <div class="craft-mini-canvas" id="canvas-orion"></div>
+            </div>
+            <div style="padding: 2rem;">
+              <div class="eyebrow" style="font-size:0.7rem;">CREWED EXPLORATION VEHICLE</div>
+              <h3 style="font-size:1.45rem; margin-bottom:0.5rem;">Orion Spacecraft</h3>
+              <div style="font-size:0.85rem; color:var(--accent-soft-cyan); margin-bottom:1rem;">Mission: Artemis II & III • Lunar Orbit & Gateway</div>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.5rem;">
+                Features high-efficiency solar arrays, advanced life-support loops, and a thermal protection system designed for Mach 32 atmospheric re-entry.
+              </p>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; font-family:var(--font-mono); font-size:0.78rem; color:var(--text-dim); margin-bottom:1.75rem;">
+                <div>CREW: 4 Astronauts</div>
+                <div>POWER: 11.2 kW Solar</div>
+                <div>MASS: 26,520 kg</div>
+                <div>DELTA-V: 1,340 m/s</div>
+              </div>
+
+              <a href="spacecraft-detail.html?craft=orion" class="btn btn-primary" style="width:100%;">
+                <span>INSPECT 3D HOTSPOTS</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Deep Space Science Probe -->
+          <article class="hud-card" style="padding:0; overflow:hidden;">
+            <div class="craft-preview-box">
+              <div class="craft-mini-canvas" id="canvas-probe"></div>
+            </div>
+            <div style="padding: 2rem;">
+              <div class="eyebrow" style="font-size:0.7rem;">AUTONOMOUS INTERPLANETARY PROBE</div>
+              <h3 style="font-size:1.45rem; margin-bottom:0.5rem;">Voyager Interstellar Emissary</h3>
+              <div style="font-size:0.85rem; color:var(--accent-soft-cyan); margin-bottom:1rem;">Mission: Interstellar Boundary Explorer</div>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.5rem;">
+                Powered by radioisotope thermoelectric generators (RTGs) and carrying a 3.7m parabolic reflector, operating for over 48 continuous years in interstellar space.
+              </p>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; font-family:var(--font-mono); font-size:0.78rem; color:var(--text-dim); margin-bottom:1.75rem;">
+                <div>POWER: Plutonium RTG</div>
+                <div>ANTENNA: 3.7m High-Gain</div>
+                <div>MASS: 825 kg</div>
+                <div>SPEED: 17.0 km/s</div>
+              </div>
+
+              <a href="spacecraft-detail.html?craft=voyager" class="btn btn-primary" style="width:100%;">
+                <span>INSPECT 3D HOTSPOTS</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Space Telescope Observatory -->
+          <article class="hud-card" style="padding:0; overflow:hidden;">
+            <div class="craft-preview-box">
+              <div class="craft-mini-canvas" id="canvas-jwst"></div>
+            </div>
+            <div style="padding: 2rem;">
+              <div class="eyebrow" style="font-size:0.7rem;">INFRARED SPACE OBSERVATORY</div>
+              <h3 style="font-size:1.45rem; margin-bottom:0.5rem;">James Webb Space Telescope</h3>
+              <div style="font-size:0.85rem; color:var(--accent-soft-cyan); margin-bottom:1rem;">Mission: Cosmic Dawn & Exoplanet Atmospheres</div>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.5rem;">
+                Features a tennis-court-sized 5-layer Kapton sunshield keeping its 18 gold-coated beryllium mirror segments cooled down to -233°C (40K).
+              </p>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; font-family:var(--font-mono); font-size:0.78rem; color:var(--text-dim); margin-bottom:1.75rem;">
+                <div>APERTURE: 6.5m Mirror</div>
+                <div>LOCATION: Sun-Earth L2</div>
+                <div>MASS: 6,161 kg</div>
+                <div>WAVELENGTH: 0.6 - 28 µm</div>
+              </div>
+
+              <a href="spacecraft-detail.html?craft=jwst" class="btn btn-primary" style="width:100%;">
+                <span>INSPECT 3D HOTSPOTS</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • Aerospace & Spacecraft Systems</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="../js/textures.js"></script>
+  <script src="../js/three-scene.js"></script>
+  <script src="../js/spacecraft-3d.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize mini rotatable preview for each card
+      ['canvas-orion', 'canvas-probe', 'canvas-jwst'].forEach(id => {
+        const c = document.getElementById(id);
+        if (c) {
+          Spacecraft3D.create(id);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

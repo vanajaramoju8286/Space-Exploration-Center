@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galaxies & Deep Space Observatory — Space Exploration Center</title>
+  <meta name="description" content="Simulate spiral galaxies, giant ellipticals, and star-forming nebulae with our real-time 3D particle vortex observatory.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+
+  <style>
+    .galaxy-fullscreen-observatory {
+      position: relative;
+      width: 100%;
+      height: 72vh;
+      min-height: 520px;
+      background: #020307;
+      overflow: hidden;
+    }
+    #galaxy-page-canvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link active">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="phenomena.html" class="btn btn-primary btn-nav-explore">PHENOMENA</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link active">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main style="padding-top: var(--header-height);">
+    <!-- Fullscreen Observatory Canvas -->
+    <div class="galaxy-fullscreen-observatory">
+      <div id="galaxy-page-canvas"></div>
+
+      <!-- Preset Selector Bar -->
+      <div class="solar-system-controls-hud">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim); display:flex; align-items:center; margin-right:0.5rem;">ASTROPHYSICAL PRESETS:</span>
+        <button class="solar-hud-btn active" data-preset="spiral">SPIRAL (MILKY WAY)</button>
+        <button class="solar-hud-btn" data-preset="elliptical">ELLIPTICAL (MESSIER 87)</button>
+        <button class="solar-hud-btn" data-preset="nebula">EMISSION NEBULA</button>
+        <button class="solar-hud-btn" data-preset="clusters">GLOBULAR CLUSTER</button>
+      </div>
+
+      <div class="craft-hud-instructions" style="bottom: 1.5rem; top: auto;">
+        DRAG TO ROTATE GALAXY • SCROLL TO FLY THROUGH ARMS (25,000+ STARS)
+      </div>
+    </div>
+
+    <!-- Astrophysics & Galactic Morphology -->
+    <section style="padding: 5rem 0 6rem; background: var(--bg-deep-space); border-top: 1px solid var(--border-glass);">
+      <div class="container">
+        <div class="eyebrow">COSMIC MORPHOLOGY</div>
+        <h2>THE ARCHITECTURE OF <span class="text-gradient">ISLAND UNIVERSES</span></h2>
+        <p class="section-desc">
+          Galaxies are vast gravitationally bound systems of stars, stellar remnants, interstellar gas, dust, and dark matter. The observable universe contains an estimated two trillion galaxies.
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem; margin-top:3.5rem;">
+          <div class="hud-card">
+            <div class="galaxy-type-tag">HUBBLE SEQUENCE: SA / SB</div>
+            <h3 style="font-size:1.3rem; margin:0.5rem 0 0.75rem;">Spiral Galaxies</h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6;">
+              Characterized by a central bulge surrounded by a flat rotating disk of stars with logarithmic spiral arms. Rich in cold interstellar gas, driving ongoing star birth.
+            </p>
+          </div>
+
+          <div class="hud-card">
+            <div class="galaxy-type-tag">HUBBLE SEQUENCE: E0 - E7</div>
+            <h3 style="font-size:1.3rem; margin:0.5rem 0 0.75rem;">Elliptical Galaxies</h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6;">
+              Smooth ellipsoidal profiles populated by elderly, low-mass stars with little to no interstellar dust. Often the product of multiple galactic mergers.
+            </p>
+          </div>
+
+          <div class="hud-card">
+            <div class="galaxy-type-tag">INTERSTELLAR MEDIUM</div>
+            <h3 style="font-size:1.3rem; margin:0.5rem 0 0.75rem;">Diffuse Nebulae</h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6;">
+              Enormous clouds of hydrogen, helium, and ionized plasma glowing brilliantly under ultraviolet radiation from newborn O and B-type stars.
+            </p>
+          </div>
+
+          <div class="hud-card">
+            <div class="galaxy-type-tag">GRAVITATIONAL CORE</div>
+            <h3 style="font-size:1.3rem; margin:0.5rem 0 0.75rem;">Globular Clusters</h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6;">
+              Dense, spherical concentrations of hundreds of thousands of ancient stars tightly bound by gravity, orbiting galactic cores like cosmic satellites.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • Deep Space Extragalactic Observatory</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="../js/textures.js"></script>
+  <script src="../js/three-scene.js"></script>
+  <script src="../js/galaxies-3d.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const app = Galaxies3D.create('galaxy-page-canvas', 'spiral');
+      document.querySelectorAll('.solar-hud-btn[data-preset]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.solar-hud-btn[data-preset]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          app.setPreset(btn.dataset.preset);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

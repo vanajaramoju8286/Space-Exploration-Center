@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exoplanet Archive & Astronomical Discoveries — Space Exploration Center</title>
+  <meta name="description" content="Discover alien worlds beyond our solar system with interactive transit photometry simulation, habitable zone maps, and spectroscopic discoveries.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+
+  <style>
+    .transit-simulator-box {
+      width: 100%;
+      height: 350px;
+      position: relative;
+      background: radial-gradient(circle at center, rgba(14, 28, 55, 0.6) 0%, #010206 85%);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+    #transit-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .light-curve-chart-box {
+      height: 160px;
+      width: 100%;
+      background: rgba(3, 7, 18, 0.9);
+      border: 1px solid var(--border-muted);
+      border-radius: var(--radius-sm);
+      margin-top: 1.5rem;
+      position: relative;
+      padding: 1rem;
+    }
+    #light-curve-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .exoplanet-table-wrap {
+      overflow-x: auto;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link active">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="about.html" class="btn btn-primary btn-nav-explore">ABOUT CENTER</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link active">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- Page Hero Banner -->
+    <section class="page-hero">
+      <div class="container page-hero-content">
+        <div class="eyebrow">EXOPLANETARY ARCHIVE & OBSERVATIONS</div>
+        <h1 class="page-hero-title">DISCOVERIES & <span class="text-gradient">EXOPLANETS</span></h1>
+        <p class="page-hero-desc">
+          Over 5,600 planets confirmed orbiting distant stars in our galaxy. Explore the transit photometry method used by Kepler, TESS, and JWST to detect and characterize alien atmospheres.
+        </p>
+      </div>
+    </section>
+
+    <!-- Interactive Transit Photometry Simulator -->
+    <section style="padding: 4.5rem 0; background: var(--bg-deep-space);">
+      <div class="container">
+        <div class="hud-card">
+          <div class="eyebrow">INTERACTIVE PHOTOMETRY SIMULATOR</div>
+          <h2>EXOPLANET TRANSIT & <span class="text-gradient-cyan">LIGHT CURVE ANALYSIS</span></h2>
+          <p style="color:var(--text-muted); font-size:0.95rem; margin-top:0.75rem; line-height:1.7;">
+            When an exoplanet passes directly between its host star and an observer on Earth, it blocks a minute fraction of the star's light. Observing this periodic light dip reveals the exoplanet's orbital radius, diameter, and atmospheric transmission spectrum.
+          </p>
+
+          <!-- 3D Transit Viewport -->
+          <div class="transit-simulator-box">
+            <div id="transit-canvas"></div>
+          </div>
+
+          <!-- Real-Time Light Curve Graph Canvas -->
+          <div class="light-curve-chart-box">
+            <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-cyan); margin-bottom:0.5rem;">
+              <span>RELATIVE STELLAR FLUX (BRIGHTNESS)</span>
+              <span id="flux-value">100.00%</span>
+            </div>
+            <canvas id="light-curve-canvas" width="900" height="110"></canvas>
+          </div>
+        </div>
+
+        <!-- Confirmed Exoplanets Catalog Table -->
+        <div class="exoplanet-table-wrap hud-card">
+          <div class="eyebrow" style="margin-bottom:0.5rem;">HABITABLE ZONE CANDIDATES</div>
+          <h3 style="font-size:1.4rem; margin-bottom:1.5rem;">NOTABLE CONFIRMED EXOPLANETS</h3>
+
+          <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.9rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-bright); font-family:var(--font-mono); color:var(--accent-cyan); font-size:0.8rem;">
+                <th style="padding: 1rem;">EXOPLANET</th>
+                <th style="padding: 1rem;">HOST STAR</th>
+                <th style="padding: 1rem;">DISTANCE</th>
+                <th style="padding: 1rem;">MASS (EARTH=1)</th>
+                <th style="padding: 1rem;">ORBIT PERIOD</th>
+                <th style="padding: 1rem;">HABITABILITY INDEX</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700; color:var(--accent-cyan);">TRAPPIST-1e</td>
+                <td style="padding: 1rem;">Ultra-cool Red Dwarf</td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">39.5 light-years</td>
+                <td style="padding: 1rem;">0.692 M⊕</td>
+                <td style="padding: 1rem;">6.10 Days</td>
+                <td style="padding: 1rem; color:#34d399; font-weight:700;">0.85 (Prime Rocky Candidate)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700; color:#fff;">Kepler-452b</td>
+                <td style="padding: 1rem;">G2V Yellow Dwarf</td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">1,402 light-years</td>
+                <td style="padding: 1rem;">~5.0 M⊕ (Super-Earth)</td>
+                <td style="padding: 1rem;">384.8 Days</td>
+                <td style="padding: 1rem; color:#34d399; font-weight:700;">0.83 (Earth Analogue)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700; color:#fff;">Proxima Centauri b</td>
+                <td style="padding: 1rem;">Red Dwarf Flare Star</td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">4.24 light-years</td>
+                <td style="padding: 1rem;">1.17 M⊕</td>
+                <td style="padding: 1rem;">11.18 Days</td>
+                <td style="padding: 1rem; color:#fbbf24; font-weight:700;">0.78 (Subject to Flares)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700; color:#fff;">K2-18b</td>
+                <td style="padding: 1rem;">M2.5 Red Dwarf</td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">124 light-years</td>
+                <td style="padding: 1rem;">8.63 M⊕ (Hycean)</td>
+                <td style="padding: 1rem;">32.9 Days</td>
+                <td style="padding: 1rem; color:#38bdf8; font-weight:700;">0.73 (Methane Detected)</td>
+              </tr>
+              <tr>
+                <td style="padding: 1rem; font-weight:700; color:#fff;">WASP-96b</td>
+                <td style="padding: 1rem;">G-type Star</td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">1,150 light-years</td>
+                <td style="padding: 1rem;">0.48 M_Jup (Hot Saturn)</td>
+                <td style="padding: 1rem;">3.42 Days</td>
+                <td style="padding: 1rem; color:var(--text-dim);">Gas Giant (Water Vapor Spectrogram)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • Exoplanet Exploration Program</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="../js/textures.js"></script>
+  <script src="../js/three-scene.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 3D Transit Simulator
+      const canvasContainer = document.getElementById('transit-canvas');
+      if (!canvasContainer) return;
+
+      const app = SpaceThree.initScene(canvasContainer, {
+        fov: 40,
+        camZ: 22,
+        controls: false,
+        exposure: 1.3
+      });
+      if (!app) return;
+
+      const { scene, camera, renderer } = app;
+
+      // Host Star (glowing golden-yellow sphere)
+      const starGeo = new THREE.SphereGeometry(4.5, 48, 48);
+      const starTex = SpaceTextures.createSunTexture(512, 256);
+      const starMesh = new THREE.Mesh(starGeo, new THREE.MeshBasicMaterial({ map: starTex }));
+      scene.add(starMesh);
+
+      // Transiting Exoplanet (silhouetted black sphere)
+      const planetGeo = new THREE.SphereGeometry(1.2, 32, 32);
+      const planetMat = new THREE.MeshBasicMaterial({ color: 0x050811 });
+      const planetMesh = new THREE.Mesh(planetGeo, planetMat);
+      scene.add(planetMesh);
+
+      // Light curve 2D canvas
+      const chartCanvas = document.getElementById('light-curve-canvas');
+      const ctx = chartCanvas.getContext('2d');
+      const fluxText = document.getElementById('flux-value');
+      const fluxHistory = [];
+      const maxHistory = 140;
+
+      let angle = 0;
+      function animate() {
+        requestAnimationFrame(animate);
+        angle += 0.015;
+
+        // Circular orbit
+        const orbitRadius = 11.0;
+        const px = Math.cos(angle) * orbitRadius;
+        const pz = Math.sin(angle) * orbitRadius;
+        planetMesh.position.set(px, 0, pz);
+
+        // Star rotation
+        starMesh.rotation.y += 0.002;
+
+        // Calculate transit light dip: when planet is in front (pz > 0 and |px| < starRadius)
+        let flux = 100.0;
+        if (pz > 0 && Math.abs(px) < 4.2) {
+          const overlap = 1.0 - (Math.abs(px) / 4.2);
+          flux = 100.0 - (overlap * 3.8); // 3.8% dip
+        }
+
+        fluxText.textContent = flux.toFixed(2) + '%';
+        fluxHistory.push(flux);
+        if (fluxHistory.length > maxHistory) fluxHistory.shift();
+
+        // Render 2D Chart
+        ctx.clearRect(0, 0, chartCanvas.width, chartCanvas.height);
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.2)';
+        ctx.lineWidth = 1;
+        // Baseline 100% line
+        ctx.beginPath();
+        ctx.moveTo(0, 25);
+        ctx.lineTo(chartCanvas.width, 25);
+        ctx.stroke();
+
+        // Flux dip line
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let i = 0; i < fluxHistory.length; i++) {
+          const x = (i / maxHistory) * chartCanvas.width;
+          const val = fluxHistory[i];
+          const y = 25 + (100.0 - val) * 18; // scale dip down
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        renderer.render(scene, camera);
+      }
+      animate();
+    });
+  </script>
+</body>
+</html>

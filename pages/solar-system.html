@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive 3D Solar System — Space Exploration Center</title>
+  <meta name="description" content="Explore our solar system in real-time 3D. Control orbital speeds, inspect planets from Mercury to Neptune, and experience astronomical scale.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+  <style>
+    .solar-fullscreen-stage {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - var(--header-height));
+      min-height: 620px;
+      overflow: hidden;
+      background: #010308;
+    }
+    #solar-page-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .speed-control-hud {
+      position: absolute;
+      bottom: 2rem;
+      left: 2rem;
+      z-index: 20;
+      display: flex;
+      gap: 0.5rem;
+      background: var(--bg-hud-glass);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(14px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link active">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="planets.html" class="btn btn-primary btn-nav-explore">PLANET INDEX</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link active">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main style="padding-top: var(--header-height);">
+    <!-- Full-screen 3D Solar System Viewport -->
+    <div class="solar-fullscreen-stage">
+      <div id="solar-page-canvas"></div>
+
+      <!-- Orbit Controls Bar -->
+      <div class="solar-system-controls-hud">
+        <button class="solar-hud-btn active" data-planet="overview">FULL SYSTEM</button>
+        <button class="solar-hud-btn" data-planet="sun">SUN</button>
+        <button class="solar-hud-btn" data-planet="mercury">MERCURY</button>
+        <button class="solar-hud-btn" data-planet="venus">VENUS</button>
+        <button class="solar-hud-btn" data-planet="earth">EARTH</button>
+        <button class="solar-hud-btn" data-planet="mars">MARS</button>
+        <button class="solar-hud-btn" data-planet="jupiter">JUPITER</button>
+        <button class="solar-hud-btn" data-planet="saturn">SATURN</button>
+        <button class="solar-hud-btn" data-planet="uranus">URANUS</button>
+        <button class="solar-hud-btn" data-planet="neptune">NEPTUNE</button>
+      </div>
+
+      <!-- Speed HUD -->
+      <div class="speed-control-hud">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim); display:flex; align-items:center; margin-right:0.5rem;">ORBIT SPEED:</span>
+        <button class="solar-hud-btn" id="speed-0">0x (PAUSE)</button>
+        <button class="solar-hud-btn active" id="speed-1">1x</button>
+        <button class="solar-hud-btn" id="speed-3">3x</button>
+        <button class="solar-hud-btn" id="speed-8">8x WARP</button>
+      </div>
+
+      <!-- Telemetry Info Panel -->
+      <div class="solar-info-panel" id="solar-page-panel">
+        <div class="eyebrow" style="font-size:0.7rem; margin-bottom:0.25rem;">CELESTIAL TRACKING</div>
+        <h3 class="solar-info-title" id="page-info-title">The Solar System</h3>
+        <div class="solar-info-type" id="page-info-type">Heliosphere • 8 Major Planets</div>
+
+        <div class="solar-stats-grid">
+          <div class="solar-stat-item">
+            <div class="solar-stat-label">System Radius</div>
+            <div class="solar-stat-value" id="page-stat-dist">~30 AU (Neptune)</div>
+          </div>
+          <div class="solar-stat-item">
+            <div class="solar-stat-label">Central Star</div>
+            <div class="solar-stat-value" id="page-stat-diam">Sun (G2V)</div>
+          </div>
+          <div class="solar-stat-item">
+            <div class="solar-stat-label">Known Moons</div>
+            <div class="solar-stat-value" id="page-stat-moons">293 Moons</div>
+          </div>
+          <div class="solar-stat-item">
+            <div class="solar-stat-label">System Age</div>
+            <div class="solar-stat-value" id="page-stat-period">4.57 Billion Yrs</div>
+          </div>
+          <div class="solar-stat-item" style="grid-column: span 2;">
+            <div class="solar-stat-label">Average Heliosphere Temp</div>
+            <div class="solar-stat-value" id="page-stat-temp">-270°C (Cosmic Background)</div>
+          </div>
+        </div>
+
+        <a href="planet-detail.html?planet=earth" class="btn btn-primary btn-nav-explore" id="page-explore-btn" style="width:100%;">
+          <span>EXPLORE PLANET PROFILE</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Astronomical Scale & Data Section -->
+    <section style="padding: 5rem 0; background: var(--bg-deep-space); border-top: 1px solid var(--border-glass);">
+      <div class="container">
+        <div class="eyebrow">PHYSICAL DYNAMICS</div>
+        <h2>HELIOCENTRIC ARCHITECTURE & <span class="text-gradient">ORBITAL MECHANICS</span></h2>
+        <p class="section-desc">
+          Our solar system was born 4.6 billion years ago from the gravitational collapse of a giant interstellar molecular cloud. Today, eight major planets orbit the central star on near-coplanar elliptical paths governed by Kepler's laws.
+        </p>
+
+        <!-- Comparative Planetary Matrix Table -->
+        <div class="hud-card" style="margin-top:3rem; overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.9rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-bright); font-family:var(--font-mono); color:var(--accent-cyan); font-size:0.8rem;">
+                <th style="padding: 1rem;">CELESTIAL BODY</th>
+                <th style="padding: 1rem;">DISTANCE (AU)</th>
+                <th style="padding: 1rem;">EQUATORIAL RADIUS</th>
+                <th style="padding: 1rem;">ORBIT PERIOD</th>
+                <th style="padding: 1rem;">SURFACE GRAVITY</th>
+                <th style="padding: 1rem;">CONFIRMED MOONS</th>
+                <th style="padding: 1rem;">EXPLORATION</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700;"><a href="planet-detail.html?planet=mercury" style="color:#fff;">Mercury</a></td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">0.39 AU</td>
+                <td style="padding: 1rem;">2,440 km</td>
+                <td style="padding: 1rem;">88 Days</td>
+                <td style="padding: 1rem;">3.7 m/s²</td>
+                <td style="padding: 1rem;">0</td>
+                <td style="padding: 1rem;"><a href="planet-detail.html?planet=mercury" class="btn-glass" style="padding:0.3rem 0.7rem; font-size:0.75rem; border-radius:4px;">Inspect</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700;"><a href="planet-detail.html?planet=venus" style="color:#fff;">Venus</a></td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">0.72 AU</td>
+                <td style="padding: 1rem;">6,052 km</td>
+                <td style="padding: 1rem;">225 Days</td>
+                <td style="padding: 1rem;">8.9 m/s²</td>
+                <td style="padding: 1rem;">0</td>
+                <td style="padding: 1rem;"><a href="planet-detail.html?planet=venus" class="btn-glass" style="padding:0.3rem 0.7rem; font-size:0.75rem; border-radius:4px;">Inspect</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700;"><a href="planet-detail.html?planet=earth" style="color:var(--accent-cyan);">Earth</a></td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">1.00 AU</td>
+                <td style="padding: 1rem;">6,371 km</td>
+                <td style="padding: 1rem;">365.25 Days</td>
+                <td style="padding: 1rem;">9.8 m/s²</td>
+                <td style="padding: 1rem;">1</td>
+                <td style="padding: 1rem;"><a href="planet-detail.html?planet=earth" class="btn-glass" style="padding:0.3rem 0.7rem; font-size:0.75rem; border-radius:4px;">Inspect</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700;"><a href="planet-detail.html?planet=mars" style="color:#fff;">Mars</a></td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">1.52 AU</td>
+                <td style="padding: 1rem;">3,390 km</td>
+                <td style="padding: 1rem;">687 Days</td>
+                <td style="padding: 1rem;">3.7 m/s²</td>
+                <td style="padding: 1rem;">2</td>
+                <td style="padding: 1rem;"><a href="planet-detail.html?planet=mars" class="btn-glass" style="padding:0.3rem 0.7rem; font-size:0.75rem; border-radius:4px;">Inspect</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700;"><a href="planet-detail.html?planet=jupiter" style="color:#fff;">Jupiter</a></td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">5.20 AU</td>
+                <td style="padding: 1rem;">69,911 km</td>
+                <td style="padding: 1rem;">11.86 Yrs</td>
+                <td style="padding: 1rem;">24.8 m/s²</td>
+                <td style="padding: 1rem;">95</td>
+                <td style="padding: 1rem;"><a href="planet-detail.html?planet=jupiter" class="btn-glass" style="padding:0.3rem 0.7rem; font-size:0.75rem; border-radius:4px;">Inspect</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700;"><a href="planet-detail.html?planet=saturn" style="color:#fff;">Saturn</a></td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">9.58 AU</td>
+                <td style="padding: 1rem;">58,232 km</td>
+                <td style="padding: 1rem;">29.45 Yrs</td>
+                <td style="padding: 1rem;">10.4 m/s²</td>
+                <td style="padding: 1rem;">146</td>
+                <td style="padding: 1rem;"><a href="planet-detail.html?planet=saturn" class="btn-glass" style="padding:0.3rem 0.7rem; font-size:0.75rem; border-radius:4px;">Inspect</a></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-muted);">
+                <td style="padding: 1rem; font-weight:700;"><a href="planet-detail.html?planet=uranus" style="color:#fff;">Uranus</a></td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">19.2 AU</td>
+                <td style="padding: 1rem;">25,362 km</td>
+                <td style="padding: 1rem;">84.0 Yrs</td>
+                <td style="padding: 1rem;">8.7 m/s²</td>
+                <td style="padding: 1rem;">28</td>
+                <td style="padding: 1rem;"><a href="planet-detail.html?planet=uranus" class="btn-glass" style="padding:0.3rem 0.7rem; font-size:0.75rem; border-radius:4px;">Inspect</a></td>
+              </tr>
+              <tr>
+                <td style="padding: 1rem; font-weight:700;"><a href="planet-detail.html?planet=neptune" style="color:#fff;">Neptune</a></td>
+                <td style="padding: 1rem; font-family:var(--font-mono);">30.1 AU</td>
+                <td style="padding: 1rem;">24,622 km</td>
+                <td style="padding: 1rem;">164.8 Yrs</td>
+                <td style="padding: 1rem;">11.2 m/s²</td>
+                <td style="padding: 1rem;">16</td>
+                <td style="padding: 1rem;"><a href="planet-detail.html?planet=neptune" class="btn-glass" style="padding:0.3rem 0.7rem; font-size:0.75rem; border-radius:4px;">Inspect</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none; padding: 2rem 0;">
+      <div>&copy; 2026 Space Exploration Center • Real-time Solar System Laboratory</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="../js/textures.js"></script>
+  <script src="../js/three-scene.js"></script>
+  <script src="../js/solar-system.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const infoTitle = document.getElementById('page-info-title');
+      const infoType = document.getElementById('page-info-type');
+      const infoDist = document.getElementById('page-stat-dist');
+      const infoDiam = document.getElementById('page-stat-diam');
+      const infoMoons = document.getElementById('page-stat-moons');
+      const infoPeriod = document.getElementById('page-stat-period');
+      const infoTemp = document.getElementById('page-stat-temp');
+      const exploreBtn = document.getElementById('page-explore-btn');
+
+      const app = SolarSystemEngine.create('solar-page-canvas', {
+        onPlanetSelect: (data) => {
+          if (infoTitle) infoTitle.textContent = data.name;
+          if (infoType) infoType.textContent = data.type;
+          if (infoDist) infoDist.textContent = data.distance;
+          if (infoDiam) infoDiam.textContent = data.diameter;
+          if (infoMoons) infoMoons.textContent = data.moons;
+          if (infoPeriod) infoPeriod.textContent = data.period;
+          if (infoTemp) infoTemp.textContent = data.temp;
+
+          if (exploreBtn) {
+            exploreBtn.href = `planet-detail.html?planet=${data.slug}`;
+            exploreBtn.style.display = data.slug === 'sun' ? 'none' : 'inline-flex';
+          }
+
+          document.querySelectorAll('.solar-hud-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.planet === data.slug);
+          });
+        }
+      });
+
+      // Planet Selector Buttons
+      document.querySelectorAll('.solar-hud-btn[data-planet]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.planet;
+          if (id === 'overview') {
+            app.resetView();
+            document.querySelectorAll('.solar-hud-btn[data-planet]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+          } else {
+            app.focusPlanet(id);
+          }
+        });
+      });
+
+      // Orbit Speed buttons
+      const speedBtns = [
+        { btn: document.getElementById('speed-0'), speed: 0 },
+        { btn: document.getElementById('speed-1'), speed: 1 },
+        { btn: document.getElementById('speed-3'), speed: 3 },
+        { btn: document.getElementById('speed-8'), speed: 8 }
+      ];
+      speedBtns.forEach(item => {
+        if (item.btn) {
+          item.btn.addEventListener('click', () => {
+            speedBtns.forEach(i => i.btn && i.btn.classList.remove('active'));
+            item.btn.classList.add('active');
+            app.setSpeed(item.speed);
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

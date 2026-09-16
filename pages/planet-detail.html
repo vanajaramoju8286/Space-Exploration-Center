@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planet Exploration & Telemetry — Space Exploration Center</title>
+  <meta name="description" content="In-depth scientific examination of planets in our solar system with full-screen interactive 3D WebGL inspection, atmospheric analysis, and mission logs.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+
+  <style>
+    .planet-hero-stage {
+      position: relative;
+      width: 100%;
+      height: 75vh;
+      min-height: 550px;
+      background: radial-gradient(circle at 50% 50%, #08152e 0%, var(--bg-void) 85%);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    #planet-detail-hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .planet-hero-hud {
+      position: relative;
+      z-index: 10;
+      max-width: 650px;
+      pointer-events: none;
+    }
+    .planet-hero-hud > * {
+      pointer-events: auto;
+    }
+    .stats-matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .stat-matrix-card {
+      background: var(--bg-card-glass);
+      border: 1px solid var(--border-glass);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(14px);
+    }
+    .atmosphere-bar-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+    .atmo-progress-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      position: relative;
+    }
+    .atmo-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      border-radius: var(--radius-full);
+    }
+    .missions-list-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link active">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="planets.html" class="btn btn-primary btn-nav-explore">ALL PLANETS</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link active">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main style="padding-top: var(--header-height);">
+    <!-- SECTION: FULL-SCREEN 3D PLANET HERO -->
+    <section class="planet-hero-stage" aria-label="Interactive 3D Planet Inspection Hero">
+      <div id="planet-detail-hero-canvas"></div>
+
+      <div class="container">
+        <div class="planet-hero-hud">
+          <div class="eyebrow" id="detail-eyebrow">OUTER TERRESTRIAL • FRONTIER WORLD</div>
+          <h1 class="hero-title" id="detail-title" style="margin-bottom:0.5rem;">MARS</h1>
+          <div style="font-family:var(--font-heading); font-size:1.3rem; color:var(--accent-cyan); margin-bottom:1.5rem;" id="detail-subtitle">
+            The Crimson Horizon of Exploration
+          </div>
+          <p style="color:#cbd5e1; font-size:1.05rem; line-height:1.7; margin-bottom:2rem;" id="detail-tagline">
+            Towering shield volcanoes, labyrinth canyons, ancient river deltas
+          </p>
+
+          <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+            <a href="#overview-section" class="btn btn-primary">
+              <span>EXPLORE METRICS & TELEMETRY</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+            </a>
+            <div class="craft-hud-instructions" style="position:static; display:flex; align-items:center;">
+              DRAG ORBIT • SCROLL ZOOM
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: OVERVIEW -->
+    <section id="overview-section" style="padding: 5rem 0; background: var(--bg-dark-navy); border-top: 1px solid var(--border-glass);">
+      <div class="container">
+        <div class="eyebrow">PLANETARY GEOPHYSICS</div>
+        <h2>PLANETARY <span class="text-gradient">OVERVIEW</span></h2>
+        <p class="section-desc" id="detail-summary" style="max-width:850px; font-size:1.15rem; line-height:1.8;">
+          Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System. The reddish tint of its surface is caused by pervasive iron oxide in the regolith.
+        </p>
+
+        <!-- Physical Characteristics Matrix -->
+        <h3 style="font-size:1.3rem; margin-top:3.5rem; margin-bottom:1.5rem; color:#fff;">PHYSICAL CHARACTERISTICS</h3>
+        <div class="stats-matrix-grid">
+          <div class="stat-matrix-card">
+            <div class="quick-stat-label">DISTANCE FROM SUN</div>
+            <div class="quick-stat-val" id="detail-stat-dist">227.9M km</div>
+          </div>
+          <div class="stat-matrix-card">
+            <div class="quick-stat-label">MEAN RADIUS</div>
+            <div class="quick-stat-val" id="detail-stat-radius">3,389.5 km</div>
+          </div>
+          <div class="stat-matrix-card">
+            <div class="quick-stat-label">SURFACE GRAVITY</div>
+            <div class="quick-stat-val" id="detail-stat-gravity">3.72 m/s² (0.38g)</div>
+          </div>
+          <div class="stat-matrix-card">
+            <div class="quick-stat-label">ORBITAL PERIOD</div>
+            <div class="quick-stat-val" id="detail-stat-orbit">687 Earth Days</div>
+          </div>
+          <div class="stat-matrix-card">
+            <div class="quick-stat-label">SOLAR DAY LENGTH</div>
+            <div class="quick-stat-val" id="detail-stat-day">24h 37m 22s</div>
+          </div>
+          <div class="stat-matrix-card">
+            <div class="quick-stat-label">AVERAGE TEMPERATURE</div>
+            <div class="quick-stat-val" id="detail-stat-temp">-63°C</div>
+          </div>
+          <div class="stat-matrix-card">
+            <div class="quick-stat-label">CONFIRMED MOONS</div>
+            <div class="quick-stat-val" id="detail-stat-moons">2 (Phobos & Deimos)</div>
+          </div>
+          <div class="stat-matrix-card">
+            <div class="quick-stat-label">MEAN DENSITY</div>
+            <div class="quick-stat-val" id="detail-stat-density">3.93 g/cm³</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: ATMOSPHERE -->
+    <section style="padding: 5rem 0; background: var(--bg-deep-space); border-top: 1px solid var(--border-glass);">
+      <div class="container">
+        <div class="hud-card" style="display:grid; grid-template-columns: 1fr 1fr; gap:3rem; align-items:center;">
+          <div>
+            <div class="eyebrow">SPECTROSCOPIC TELEMETRY</div>
+            <h2>ATMOSPHERIC <span class="text-gradient-cyan">COMPOSITION</span></h2>
+            <p style="color:var(--text-muted); font-size:0.95rem; margin-top:0.75rem; line-height:1.7;">
+              Planetary atmospheric envelope analyzed via spectrometer absorption lines and telemetry downlinks.
+            </p>
+            <div style="margin-top:1.5rem; font-family:var(--font-mono); font-size:0.85rem; color:var(--accent-cyan);">
+              BAROMETRIC PRESSURE: <strong id="detail-atmo-pressure">0.006 bar (0.6% of Earth)</strong>
+            </div>
+          </div>
+
+          <!-- Composition Bars -->
+          <div class="atmosphere-bar-wrap" id="detail-atmo-bars">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: EXPLORATION MISSIONS -->
+    <section style="padding: 5rem 0; background: var(--bg-dark-navy); border-top: 1px solid var(--border-glass);">
+      <div class="container">
+        <div class="eyebrow">HISTORIC & ACTIVE EXPEDITIONS</div>
+        <h2>EXPLORATION <span class="text-gradient">MISSIONS</span></h2>
+        <p class="section-desc">
+          Spacecraft and scientific missions sent across interplanetary space to study this world.
+        </p>
+
+        <div class="missions-list-grid" id="detail-missions-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: INTERESTING FACTS & TRIVIA -->
+    <section style="padding: 5rem 0 6rem; background: var(--bg-deep-space); border-top: 1px solid var(--border-glass);">
+      <div class="container">
+        <div class="eyebrow">ASTROPHYSICAL PHENOMENA</div>
+        <h2>INTERESTING <span class="text-gradient-cyan">FACTS</span></h2>
+        <div class="hud-card" style="margin-top:2.5rem;">
+          <ul id="detail-trivia-list" style="list-style:none; display:flex; flex-direction:column; gap:1.25rem;">
+            <!-- Dynamically populated -->
+          </ul>
+        </div>
+
+        <div style="text-align:center; margin-top:3.5rem;">
+          <a href="planets.html" class="btn btn-secondary">
+            <span>&larr; BACK TO PLANET DIRECTORY</span>
+          </a>
+          <a href="solar-system.html" class="btn btn-primary" style="margin-left:1rem;">
+            <span>VIEW IN SOLAR SYSTEM</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • Planetary Laboratory</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="../js/textures.js"></script>
+  <script src="../js/three-scene.js"></script>
+  <script src="../js/planets.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Parse ?planet= query parameter, default to 'mars'
+      const urlParams = new URLSearchParams(window.location.search);
+      const planetSlug = urlParams.get('planet') || 'mars';
+
+      const profile = PlanetViewer.getPlanetProfile(planetSlug);
+
+      // Populate DOM elements
+      document.title = `${profile.name} — Planetary Profile | Space Exploration Center`;
+      document.getElementById('detail-eyebrow').textContent = profile.eyebrow;
+      document.getElementById('detail-title').textContent = profile.name.toUpperCase();
+      document.getElementById('detail-subtitle').textContent = profile.subtitle;
+      document.getElementById('detail-tagline').textContent = profile.tagline;
+      document.getElementById('detail-summary').textContent = profile.summary;
+
+      // Stats
+      document.getElementById('detail-stat-dist').textContent = profile.stats.distance;
+      document.getElementById('detail-stat-radius').textContent = profile.stats.radius;
+      document.getElementById('detail-stat-gravity').textContent = profile.stats.gravity;
+      document.getElementById('detail-stat-orbit').textContent = profile.stats.orbitPeriod;
+      document.getElementById('detail-stat-day').textContent = profile.stats.dayLength;
+      document.getElementById('detail-stat-temp').textContent = profile.stats.avgTemp;
+      document.getElementById('detail-stat-moons').textContent = profile.stats.moons;
+      document.getElementById('detail-stat-density').textContent = profile.stats.density;
+
+      // Atmosphere
+      document.getElementById('detail-atmo-pressure').textContent = profile.atmosphere.pressure;
+      const atmoBarsContainer = document.getElementById('detail-atmo-bars');
+      atmoBarsContainer.innerHTML = profile.atmosphere.composition.map(item => `
+        <div>
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.25rem;">
+            <span>${item.gas}</span>
+            <strong style="color:var(--accent-cyan);">${item.percent}</strong>
+          </div>
+          <div class="atmo-progress-bar">
+            <div class="atmo-progress-fill" style="width:${parseFloat(item.percent) || 5}%;"></div>
+          </div>
+        </div>
+      `).join('');
+
+      // Missions
+      const missionsContainer = document.getElementById('detail-missions-list');
+      missionsContainer.innerHTML = profile.missions.map(m => `
+        <div class="hud-card">
+          <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-cyan); margin-bottom:0.4rem;">${m.year} • ${m.status}</div>
+          <h4 style="font-size:1.25rem; margin-bottom:0.4rem;">${m.name}</h4>
+          <div style="font-size:0.8rem; color:var(--accent-soft-cyan); margin-bottom:0.75rem;">Type: ${m.type}</div>
+          <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.5;">${m.result}</p>
+        </div>
+      `).join('');
+
+      // Trivia
+      const triviaContainer = document.getElementById('detail-trivia-list');
+      triviaContainer.innerHTML = profile.trivia.map(t => `
+        <li style="display:flex; gap:1rem; align-items:flex-start;">
+          <span style="color:var(--accent-cyan); font-family:var(--font-mono); font-weight:700;">//</span>
+          <span style="color:var(--text-muted); font-size:0.95rem; line-height:1.6;">${t}</span>
+        </li>
+      `).join('');
+
+      // Initialize Full-Screen 3D Planet Viewer Hero
+      PlanetViewer.createViewer('planet-detail-hero-canvas', planetSlug, { camZ: 14 });
+    });
+  </script>
+</body>
+</html>

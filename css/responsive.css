@@ -1,0 +1,270 @@
+/* ==========================================================================
+   SPACE EXPLORATION CENTER — RESPONSIVE DESIGN & ACCESSIBILITY
+   Breakpoints: 1700px, 1600px, 1440px, 1240px, 991px, 767px, 480px
+   ========================================================================== */
+
+/* 1700px Screen (approx 1400px content) */
+@media (max-width: 1700px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
+/* 1600px Screen (approx 1300px content) */
+@media (max-width: 1600px) {
+  .container {
+    max-width: 1300px;
+  }
+}
+
+/* 1440px Screen (approx 1200px content) */
+@media (max-width: 1440px) {
+  .container {
+    max-width: 1200px;
+  }
+  .hero-title {
+    font-size: 4.5rem;
+  }
+  .solar-canvas-wrapper {
+    height: 580px;
+  }
+}
+
+/* 1240px Screen (approx 960px content) */
+@media (max-width: 1240px) {
+  .container {
+    max-width: 960px;
+  }
+  .nav-links {
+    gap: 1.2rem;
+  }
+  .nav-link {
+    font-size: 0.78rem;
+  }
+  .planet-showcase-stage {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .spacecraft-interactive-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .phenomena-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .telemetry-dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-top-grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 2rem;
+  }
+  .journey-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 991px Screen (approx 720px content - Tablet) */
+@media (max-width: 991px) {
+  .container {
+    max-width: 720px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  /* Navigation Collapsing */
+  .nav-links, .nav-actions .btn-nav-explore {
+    display: none;
+  }
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  .hero-telemetry-hud {
+    display: none; /* Keep clean on tablet */
+  }
+
+  /* Stacking 2-col 3D sections into 1-col */
+  .planet-showcase-stage {
+    grid-template-columns: 1fr;
+  }
+  .planet-viewer-canvas-box {
+    height: 400px;
+  }
+
+  .spacecraft-interactive-container {
+    grid-template-columns: 1fr;
+  }
+  .spacecraft-canvas-box {
+    height: 420px;
+  }
+
+  .phenomena-container {
+    grid-template-columns: 1fr;
+  }
+  .phenomena-canvas-wrapper {
+    height: 380px;
+  }
+
+  /* Timeline adjustment for tablet */
+  .timeline-entry {
+    width: 100%;
+    padding: 1rem 0 1rem 3rem !important;
+    text-align: left !important;
+    left: 0 !important;
+  }
+  .timeline-center-line {
+    left: 1rem;
+    transform: none;
+  }
+  .timeline-node-orb {
+    left: calc(1rem - 9px) !important;
+    right: auto !important;
+  }
+
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .journey-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .journey-viewport-box {
+    height: 440px;
+  }
+}
+
+/* 767px Screen (100% Mobile) */
+@media (max-width: 767px) {
+  .container {
+    max-width: 100%;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  :root {
+    --header-height: 70px;
+  }
+
+  .hero-space-experience {
+    min-height: 600px;
+  }
+  .hero-title {
+    font-size: 2.6rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+
+  /* Mobile-friendly video crop + lighter overlay for readability */
+  .hero-video {
+    object-position: 50% 28%;
+    transform: scale(1.06);
+  }
+  .hero-video-layer .hero-video-overlay {
+    background: linear-gradient(to bottom, rgba(2, 4, 10, 0.6) 0%, rgba(2, 4, 10, 0.2) 40%, rgba(2, 4, 10, 0.12) 55%, rgba(2, 4, 10, 0.62) 80%, rgba(2, 4, 10, 0.92) 100%);
+  }
+
+  .solar-canvas-wrapper {
+    height: 420px;
+  }
+  .solar-info-panel {
+    position: static;
+    width: 100%;
+    margin-top: 1rem;
+    box-shadow: none;
+  }
+
+  .planet-quick-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .journey-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .journey-viewport-box {
+    height: 380px;
+  }
+  .journey-hud-bar {
+    position: static;
+  }
+
+  .telemetry-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .footer-top-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .footer-bottom-bar {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  /* Custom cursor disabled on mobile/touch screens */
+  .space-cursor-dot, .space-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* 480px Screen (Small Mobile) */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.1rem;
+  }
+  .planet-name-hero {
+    font-size: 2.2rem;
+  }
+  .hud-card {
+    padding: 1.25rem;
+  }
+  .solar-system-controls-hud {
+    width: calc(100% - 2rem);
+    justify-content: center;
+  }
+  .solar-hud-btn {
+    font-size: 0.68rem;
+    padding: 0.35rem 0.6rem;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .space-cursor-ring, .space-cursor-dot {
+    display: none !important;
+  }
+
+  .logo-orbit-symbol {
+    animation: none !important;
+  }
+
+  .journey-grid-card {
+    transition: opacity 0.1s ease !important;
+    transform: none !important;
+  }
+}

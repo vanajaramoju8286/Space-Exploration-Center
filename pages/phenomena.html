@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic Phenomena Laboratory — Space Exploration Center</title>
+  <meta name="description" content="Simulate black holes, supernovas, solar flares, and comets in real-time WebGL with relativistic physics and accretion dynamics.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+
+  <style>
+    .phenomena-fullscreen-lab {
+      position: relative;
+      width: 100%;
+      height: 72vh;
+      min-height: 520px;
+      background: #010205;
+      overflow: hidden;
+    }
+    #phenomena-page-canvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="discoveries.html" class="btn btn-primary btn-nav-explore">DISCOVERIES</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link active">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main style="padding-top: var(--header-height);">
+    <!-- Fullscreen 3D Laboratory Stage -->
+    <div class="phenomena-fullscreen-lab">
+      <div id="phenomena-page-canvas"></div>
+
+      <!-- Selector Bar -->
+      <div class="solar-system-controls-hud">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim); display:flex; align-items:center; margin-right:0.5rem;">COSMIC PHENOMENA:</span>
+        <button class="solar-hud-btn active" data-phenom="blackhole">BLACK HOLE</button>
+        <button class="solar-hud-btn" data-phenom="supernova">SUPERNOVA</button>
+        <button class="solar-hud-btn" data-phenom="flare">SOLAR FLARE</button>
+        <button class="solar-hud-btn" data-phenom="comet">COMET NUCLEUS</button>
+      </div>
+
+      <div class="craft-hud-instructions" style="bottom: 1.5rem; top: auto;">
+        DRAG TO ORBIT PHENOMENON • SCROLL TO ZOOM RELATIVISTIC ACCRETION
+      </div>
+    </div>
+
+    <!-- Telemetry & Physics Breakdown -->
+    <section style="padding: 5rem 0 6rem; background: var(--bg-deep-space); border-top: 1px solid var(--border-glass);">
+      <div class="container">
+        <div class="hud-card" style="display:grid; grid-template-columns: 1.2fr 1fr; gap:3rem; align-items:flex-start;">
+          <div>
+            <div class="eyebrow" id="p-active-type">GRAVITATIONAL SINGULARITY & ACCRETION DISK</div>
+            <h2 id="p-active-title">Supermassive Black Hole</h2>
+            <div style="font-family:var(--font-heading); font-size:1.15rem; color:var(--accent-cyan); margin: 0.5rem 0 1rem;" id="p-active-sub">
+              Sagittarius A* Gravitational Singularity
+            </div>
+            <p style="color:var(--text-muted); font-size:1.05rem; line-height:1.7;" id="p-active-desc">
+              A region of spacetime where gravity is so intense that nothing—not even light—can escape. Matter falling into the supermassive black hole forms a superheated, rapidly swirling accretion disk radiating energetic X-rays and relativistic particle jets.
+            </p>
+          </div>
+
+          <!-- Physical Constants & Measurements -->
+          <div style="background:rgba(3,7,18,0.85); border:1px solid var(--border-muted); border-radius:var(--radius-sm); padding:2rem;">
+            <div class="eyebrow" style="font-size:0.75rem;">ASTROPHYSICAL TELEMETRY</div>
+            <div style="margin-top:1.25rem; display:flex; flex-direction:column; gap:1rem;">
+              <div style="border-left:2px solid var(--accent-cyan); padding-left:0.75rem;">
+                <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-dim);">MASS EQUIVALENCE</div>
+                <div style="font-weight:700; color:#fff; font-size:1.05rem;" id="p-stat-mass">4.15 Million Solar Masses</div>
+              </div>
+              <div style="border-left:2px solid var(--accent-cyan); padding-left:0.75rem;">
+                <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-dim);">BOUNDARY RADIUS</div>
+                <div style="font-weight:700; color:#fff; font-size:1.05rem;" id="p-stat-radius">12 Million km (Schwarzschild Radius)</div>
+              </div>
+              <div style="border-left:2px solid var(--accent-cyan); padding-left:0.75rem;">
+                <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-dim);">PLASMA TEMPERATURE</div>
+                <div style="font-weight:700; color:var(--accent-cyan); font-size:1.05rem;" id="p-stat-temp">10 Billion Kelvin</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • High-Energy Astrophysics Division</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="../js/textures.js"></script>
+  <script src="../js/three-scene.js"></script>
+  <script src="../js/phenomena-3d.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const typeEl = document.getElementById('p-active-type');
+      const titleEl = document.getElementById('p-active-title');
+      const subEl = document.getElementById('p-active-sub');
+      const descEl = document.getElementById('p-active-desc');
+      const massEl = document.getElementById('p-stat-mass');
+      const radEl = document.getElementById('p-stat-radius');
+      const tempEl = document.getElementById('p-stat-temp');
+
+      const app = Phenomena3D.create('phenomena-page-canvas', 'blackhole', {
+        onSelect: (data) => {
+          if (typeEl) typeEl.textContent = data.type;
+          if (titleEl) titleEl.textContent = data.name;
+          if (subEl) subEl.textContent = data.subtitle;
+          if (descEl) descEl.textContent = data.desc;
+          if (massEl) massEl.textContent = data.mass;
+          if (radEl) radEl.textContent = data.eventHorizon;
+          if (tempEl) tempEl.textContent = data.temperature;
+        }
+      });
+
+      document.querySelectorAll('.solar-hud-btn[data-phenom]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.solar-hud-btn[data-phenom]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          app.loadPhenomenon(btn.dataset.phenom);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

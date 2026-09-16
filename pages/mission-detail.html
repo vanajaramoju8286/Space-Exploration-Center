@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Dossier — Space Exploration Center</title>
+  <meta name="description" content="Technical mission specifications, launch vehicle telemetry, orbital trajectory, and scientific payload analysis.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+
+  <style>
+    .mission-hero-banner {
+      position: relative;
+      padding: 8rem 0 4rem;
+      background: radial-gradient(circle at 50% 30%, #0c1a36 0%, var(--bg-deep-space) 80%);
+      border-bottom: 1px solid var(--border-glass);
+    }
+    .trajectory-canvas-box {
+      width: 100%;
+      height: 420px;
+      background: radial-gradient(circle at center, rgba(14, 28, 55, 0.7) 0%, #02040a 85%);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+    }
+    #trajectory-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .telemetry-ticker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link active">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="missions.html" class="btn btn-primary btn-nav-explore">ALL MISSIONS</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link active">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <section class="mission-hero-banner">
+      <div class="container">
+        <div class="eyebrow" id="m-eyebrow">DEEP SPACE EXPLORATION DOSSIER</div>
+        <h1 class="hero-title" id="m-title" style="margin-bottom:0.5rem;">ARTEMIS II</h1>
+        <div style="font-family:var(--font-heading); font-size:1.3rem; color:var(--accent-cyan); margin-bottom:1.25rem;" id="m-subtitle">
+          Crewed Lunar Orbit Expedition
+        </div>
+        <p class="section-desc" id="m-desc" style="max-width:780px;">
+          The first crewed flight test of NASA's Orion spacecraft and Space Launch System (SLS) rocket, sending four astronauts on a 10-day translunar voyage around the far side of the Moon.
+        </p>
+
+        <!-- Telemetry Ticker -->
+        <div class="telemetry-ticker-grid">
+          <div class="hud-card" style="padding:1rem;">
+            <div class="quick-stat-label">LAUNCH VEHICLE</div>
+            <div class="quick-stat-val" id="m-stat-rocket" style="font-size:1rem;">SLS Block 1</div>
+          </div>
+          <div class="hud-card" style="padding:1rem;">
+            <div class="quick-stat-label">LAUNCH SITE</div>
+            <div class="quick-stat-val" id="m-stat-site" style="font-size:1rem;">KSC LC-39B</div>
+          </div>
+          <div class="hud-card" style="padding:1rem;">
+            <div class="quick-stat-label">CREW CAPACITY</div>
+            <div class="quick-stat-val" id="m-stat-crew" style="font-size:1rem;">4 Astronauts</div>
+          </div>
+          <div class="hud-card" style="padding:1rem;">
+            <div class="quick-stat-label">MISSION TRAJECTORY</div>
+            <div class="quick-stat-val" id="m-stat-orbit" style="font-size:1rem;">Lunar Free-Return</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trajectory Simulation & Milestones -->
+    <section style="padding: 5rem 0; background: var(--bg-deep-space);">
+      <div class="container">
+        <div class="hud-card" style="display:grid; grid-template-columns: 1.2fr 1fr; gap:3rem; align-items:center;">
+          <div>
+            <div class="eyebrow">ORBITAL SIMULATION</div>
+            <h2>3D MISSION <span class="text-gradient-cyan">TRAJECTORY</span></h2>
+            <p style="color:var(--text-muted); font-size:0.95rem; margin-top:0.75rem; line-height:1.7;">
+              Interactive orbital flight dynamics showing injection burns, gravitational slingshots, and translunar insertion.
+            </p>
+            <div class="trajectory-canvas-box" style="margin-top:1.5rem;">
+              <div id="trajectory-canvas"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="eyebrow">CHRONOLOGICAL FLIGHT PROFILE</div>
+            <h3 style="font-size:1.4rem; margin-bottom:1.5rem;">MISSION MILESTONES</h3>
+
+            <div style="display:flex; flex-direction:column; gap:1.25rem;" id="m-milestones-list">
+              <div style="border-left: 2px solid var(--accent-cyan); padding-left:1rem;">
+                <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-cyan);">T+ 00:00:00 // LIFTOFF</div>
+                <h4 style="font-size:1rem; margin:0.25rem 0;">SLS Core Stage & Twin Boosters Ignition</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted);">8.8 million lbs of thrust propelling Orion through atmospheric ascent.</p>
+              </div>
+
+              <div style="border-left: 2px solid var(--accent-cyan); padding-left:1rem;">
+                <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-cyan);">T+ 01:45:00 // TLI BURN</div>
+                <h4 style="font-size:1rem; margin:0.25rem 0;">Translunar Injection Maneuver</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted);">ICPS cryogenic stage fires to escape Earth orbit toward the Moon.</p>
+              </div>
+
+              <div style="border-left: 2px solid var(--accent-cyan); padding-left:1rem;">
+                <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-cyan);">MET DAY 05 // LUNAR FLYBY</div>
+                <h4 style="font-size:1rem; margin:0.25rem 0;">Far Side Free-Return Arc</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Sailing 10,400 km beyond lunar terrain, setting a new human distance record.</p>
+              </div>
+
+              <div style="border-left: 2px solid var(--accent-cyan); padding-left:1rem;">
+                <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-cyan);">MET DAY 10 // ENTRY & SPLASHDOWN</div>
+                <h4 style="font-size:1rem; margin:0.25rem 0;">Pacific Ocean Recovery</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Skip-reentry through Earth atmosphere at Mach 32, deploying three main parachutes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:3.5rem;">
+          <a href="missions.html" class="btn btn-secondary">&larr; BACK TO MISSIONS EXPLORER</a>
+          <a href="spacecraft.html" class="btn btn-primary" style="margin-left:1rem;">INSPECT SPACECRAFT HANGAR</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • Flight Dynamics Division</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="../js/textures.js"></script>
+  <script src="../js/three-scene.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 3D Orbital Trajectory Canvas
+      const canvasContainer = document.getElementById('trajectory-canvas');
+      if (!canvasContainer) return;
+
+      const app = SpaceThree.initScene(canvasContainer, {
+        fov: 45,
+        camZ: 30,
+        controls: true,
+        exposure: 1.2
+      });
+      if (!app) return;
+
+      const { scene, camera, renderer } = app;
+
+      // Earth at center
+      const earthMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(3.5, 32, 32),
+        new THREE.MeshStandardMaterial({ map: SpaceTextures.createEarthTexture(512, 256), roughness: 0.7 })
+      );
+      scene.add(earthMesh);
+
+      // Moon at distance
+      const moonMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(1.2, 24, 24),
+        new THREE.MeshStandardMaterial({ map: SpaceTextures.createMoonTexture(256, 128), roughness: 0.9 })
+      );
+      moonMesh.position.set(16, 2, -6);
+      scene.add(moonMesh);
+
+      // Curved Trajectory Spline (Translunar Figure-8 Loop)
+      const curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(0, 4.2, 0),
+        new THREE.Vector3(6, 6, -2),
+        new THREE.Vector3(12, 5, -5),
+        new THREE.Vector3(18, 2, -8),
+        new THREE.Vector3(17, -1, -5),
+        new THREE.Vector3(10, -4, -2),
+        new THREE.Vector3(0, -4.2, 0)
+      ], true);
+
+      const points = curve.getPoints(120);
+      const trajectoryGeo = new THREE.BufferGeometry().setFromPoints(points);
+      const trajectoryMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, linewidth: 2 });
+      const trajectoryLine = new THREE.Line(trajectoryGeo, trajectoryMat);
+      scene.add(trajectoryLine);
+
+      // Glowing Spacecraft Tracker bead
+      const probeGeo = new THREE.SphereGeometry(0.35, 16, 16);
+      const probeMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const probe = new THREE.Mesh(probeGeo, probeMat);
+      scene.add(probe);
+
+      // Lighting
+      const light = new THREE.DirectionalLight(0xffffff, 2.0);
+      light.position.set(15, 10, 20);
+      scene.add(light);
+      scene.add(new THREE.AmbientLight(0x0a192f, 0.4));
+
+      let t = 0;
+      function anim() {
+        requestAnimationFrame(anim);
+        t = (t + 0.003) % 1;
+        const pos = curve.getPointAt(t);
+        probe.position.copy(pos);
+        earthMesh.rotation.y += 0.003;
+        renderer.render(scene, camera);
+      }
+      anim();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deep Space Telemetry Transmission & Contact — Space Exploration Center</title>
+  <meta name="description" content="Transmit inquiries to Mission Control, Deep Space Network antenna sites, and research fellowship coordinators.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/space-animations.css">
+
+  <style>
+    .contact-layout-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+      margin-top: 3.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      background: rgba(3, 7, 18, 0.85);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1.1rem;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+    }
+    .dsn-antenna-card {
+      background: rgba(3, 7, 18, 0.7);
+      border: 1px solid var(--border-muted);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-orbit-symbol"><div class="logo-core"></div><div class="logo-satellite"></div></div>
+        <span>SPACE EXPLORATION CENTER</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="../index.html" class="nav-link">HOME</a></li>
+          <li><a href="solar-system.html" class="nav-link">SOLAR SYSTEM</a></li>
+          <li><a href="planets.html" class="nav-link">PLANETS</a></li>
+          <li><a href="missions.html" class="nav-link">MISSIONS</a></li>
+          <li><a href="spacecraft.html" class="nav-link">SPACECRAFT</a></li>
+          <li><a href="galaxies.html" class="nav-link">GALAXIES</a></li>
+          <li><a href="discoveries.html" class="nav-link">DISCOVERIES</a></li>
+          <li><a href="about.html" class="nav-link">ABOUT</a></li>
+          <li><a href="contact.html" class="nav-link active">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="../index.html" class="btn btn-primary btn-nav-explore">HOME PORTAL</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">HOME</a></li>
+      <li><a href="solar-system.html" class="mobile-nav-link">SOLAR SYSTEM</a></li>
+      <li><a href="planets.html" class="mobile-nav-link">PLANETS</a></li>
+      <li><a href="missions.html" class="mobile-nav-link">MISSIONS</a></li>
+      <li><a href="spacecraft.html" class="mobile-nav-link">SPACECRAFT</a></li>
+      <li><a href="galaxies.html" class="mobile-nav-link">GALAXIES</a></li>
+      <li><a href="phenomena.html" class="mobile-nav-link">PHENOMENA</a></li>
+      <li><a href="discoveries.html" class="mobile-nav-link">DISCOVERIES</a></li>
+      <li><a href="about.html" class="mobile-nav-link">ABOUT</a></li>
+      <li><a href="contact.html" class="mobile-nav-link active">CONTACT</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- Hero Banner with 3D Globe Background -->
+    <section class="page-hero" style="min-height:360px;">
+      <div id="contact-bg-canvas" style="position:absolute; inset:0; z-index:1;"></div>
+      <div class="container page-hero-content">
+        <div class="eyebrow">COMMUNICATIONS SUBSYSTEM</div>
+        <h1 class="page-hero-title">MISSION CONTROL <span class="text-gradient">UPLINK</span></h1>
+        <p class="page-hero-desc">
+          Establish direct transmission with our astrophysicists, research fellows, education coordinators, or the Deep Space Network communication terminal.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Form & Ground Station Telemetry -->
+    <section style="padding: 4rem 0 6rem; background: var(--bg-deep-space);">
+      <div class="container">
+        <div class="contact-layout-grid">
+
+          <!-- Transmission Uplink Form -->
+          <div class="hud-card">
+            <div class="eyebrow">SECURE TRANSMISSION PROTOCOL</div>
+            <h2 style="font-size:1.6rem; margin-bottom:1.5rem;">DISPATCH A MESSAGE</h2>
+
+            <form id="contact-form">
+              <div class="form-group">
+                <label class="form-label" for="contact-name">TRANSMITTER CALLSIGN / NAME *</label>
+                <input type="text" id="contact-name" class="form-input" placeholder="e.g. Commander Sarah Vance" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-email">RETURN TELEMETRY FREQUENCY / EMAIL *</label>
+                <input type="email" id="contact-email" class="form-input" placeholder="e.g. s.vance@aerospace.org" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-target">RECIPIENT DIVISION</label>
+                <select id="contact-target" class="form-select">
+                  <option value="science">Astrophysics & Exoplanet Research</option>
+                  <option value="missions">Flight Operations & Mission Control</option>
+                  <option value="education">Public Outreach & STEM Fellowships</option>
+                  <option value="press">Media Relations & Data Archives</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-message">TRANSMISSION PAYLOAD *</label>
+                <textarea id="contact-message" class="form-textarea" rows="5" placeholder="Enter scientific inquiry, collaboration proposal, or message..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" id="submit-btn" style="width:100%; font-size:0.95rem;">
+                <span>ENCODE & TRANSMIT UPLINK</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+
+              <div id="form-feedback" style="display:none; margin-top:1rem; padding:0.9rem; border-radius:4px; font-family:var(--font-mono); font-size:0.85rem; background:rgba(16,185,129,0.15); border:1px solid #10b981; color:#34d399;">
+                [SIGNAL CONFIRMED] Transmission uplink encoded. Carrier frequency locked. Response within 24 standard hours.
+              </div>
+            </form>
+          </div>
+
+          <!-- Ground Station Locations & Deep Space Network -->
+          <div>
+            <div class="hud-card" style="margin-bottom:2rem;">
+              <div class="eyebrow">HEADQUARTERS & OBSERVATORY</div>
+              <h3 style="font-size:1.3rem; margin-bottom:1rem;">Space Exploration Center</h3>
+              <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.7; margin-bottom:1.5rem;">
+                1004 Observatory Ridge, Goldstone Complex<br>
+                Mojave Desert, CA 92311, United States
+              </p>
+
+              <div style="font-family:var(--font-mono); font-size:0.85rem; display:flex; flex-direction:column; gap:0.6rem; color:var(--text-muted);">
+                <div>EMAIL: <a href="mailto:contact@space-exploration-center.org" style="color:var(--accent-cyan);">contact@space-exploration-center.org</a></div>
+                <div>TEL: <a href="tel:+18005557722" style="color:var(--accent-cyan);">+1 (800) 555-SPACE (7722)</a></div>
+                <div>FREQUENCY: 8.412 GHz (DSN Uplink)</div>
+              </div>
+            </div>
+
+            <!-- DSN Global Antenna Complex -->
+            <div class="hud-card">
+              <div class="eyebrow">DEEP SPACE NETWORK STATIONS</div>
+              <h4 style="font-size:1.15rem; margin-bottom:1.25rem;">Global 70-Meter Antennas</h4>
+
+              <div class="dsn-antenna-card">
+                <div>
+                  <strong style="color:#fff; font-size:0.9rem;">Goldstone Deep Space Station</strong>
+                  <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim);">DSS 14 • 35.42°N, 116.89°W</div>
+                </div>
+                <span style="font-family:var(--font-mono); font-size:0.75rem; color:#34d399;">TRACKING ACTIVE</span>
+              </div>
+
+              <div class="dsn-antenna-card">
+                <div>
+                  <strong style="color:#fff; font-size:0.9rem;">Madrid Deep Space Complex</strong>
+                  <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim);">DSS 63 • 40.43°N, 4.25°W</div>
+                </div>
+                <span style="font-family:var(--font-mono); font-size:0.75rem; color:#34d399;">ONLINE</span>
+              </div>
+
+              <div class="dsn-antenna-card" style="margin-bottom:0;">
+                <div>
+                  <strong style="color:#fff; font-size:0.9rem;">Canberra Deep Space Complex</strong>
+                  <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim);">DSS 43 • 35.40°S, 148.98°E</div>
+                </div>
+                <span style="font-family:var(--font-mono); font-size:0.75rem; color:#34d399;">ONLINE</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom-bar" style="border:none;">
+      <div>&copy; 2026 Space Exploration Center • Deep Space Telemetry Division</div>
+      <div><a href="../index.html" class="footer-link">Return to Home Portal</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="../js/textures.js"></script>
+  <script src="../js/three-scene.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/cursor.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Subtle background globe
+      const container = document.getElementById('contact-bg-canvas');
+      if (container) {
+        const app = SpaceThree.initScene(container, {
+          fov: 45,
+          camZ: 14,
+          controls: false,
+          exposure: 1.1
+        });
+        if (app) {
+          const { scene, camera, renderer } = app;
+          const stars = SpaceThree.createStarfield(1500, 600);
+          scene.add(stars);
+
+          const earth = new THREE.Mesh(
+            new THREE.SphereGeometry(4, 32, 32),
+            new THREE.MeshStandardMaterial({ map: SpaceTextures.createEarthTexture(512, 256), roughness: 0.7 })
+          );
+          earth.position.set(7, -1, 0);
+          scene.add(earth);
+
+          const atmo = SpaceThree.createAtmosphere(4, 0x00f0ff, 1.2, 3.0);
+          earth.add(atmo);
+
+          const light = new THREE.DirectionalLight(0xffffff, 2.0);
+          light.position.set(10, 10, 10);
+          scene.add(light);
+          scene.add(new THREE.AmbientLight(0x0f172a, 0.4));
+
+          function anim() {
+            requestAnimationFrame(anim);
+            earth.rotation.y += 0.002;
+            renderer.render(scene, camera);
+          }
+          anim();
+        }
+      }
+
+      // Contact Form submit feedback
+      const form = document.getElementById('contact-form');
+      const feedback = document.getElementById('form-feedback');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          SpaceNav.playChirp(1200, 'sine', 0.15);
+          feedback.style.display = 'block';
+          form.reset();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
